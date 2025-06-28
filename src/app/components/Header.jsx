@@ -158,7 +158,7 @@ export default function Header() {
               <div>
                 <p className="text-sm mt-8">
                   Get in touch{" "}
-                  <span className="text-blue-600 underline cursor-pointer">
+                  <span className="text-blue-600  cursor-pointer">
                     contact@assetlocka.com
                   </span>
                 </p>
