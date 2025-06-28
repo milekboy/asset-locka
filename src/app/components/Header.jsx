@@ -105,7 +105,7 @@ export default function Header() {
                 className="text-blue-500"
               />
             </div>
-            <ul className="p-6 flex flex-col gap-7 font-medium list-disc list-inside">
+            <ul className="p-6 flex flex-col gap-7 font-medium list-disc list-inside h-full overflow-y-scroll">
               <Link href="/">
                 <li onClick={navHandler}>Home</li>
               </Link>
@@ -156,13 +156,13 @@ export default function Header() {
                 Sign Up
               </Link>
               <div>
-                <p className="text-sm mt-10">
+                <p className="text-sm mt-8">
                   Get in touch{" "}
                   <span className="text-blue-600 underline cursor-pointer">
                     contact@assetlocka.com
                   </span>
                 </p>
-                <div className="flex gap-5 text-blue-400 text-lg mt-4">
+                <div className="flex gap-5 text-blue-400 text-lg mt-4 pb-20">
                   <FaFacebookF /> <FaInstagram />
                 </div>
               </div>
