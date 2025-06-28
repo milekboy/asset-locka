@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaFacebookF } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 
@@ -11,12 +11,26 @@ export default function Header() {
   const navHandler = () => {
     setMenuOpen(false);
   };
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10); // adjust scroll distance if needed
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="bg-transparent sticky top-0 z-50 px-[1.5rem]">
+    <header
+      className={`sticky top-0 z-50 px-[1.5rem] transition-colors duration-300 ${
+        scrolled ? "bg-white shadow-md" : "bg-transparent"
+      }`}
+    >
       <div className="container mx-auto px-4 pt-5">
         <nav className="bg-transparent flex justify-between items-center py-3">
           <Link href="/">
