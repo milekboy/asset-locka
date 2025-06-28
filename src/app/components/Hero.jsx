@@ -12,7 +12,7 @@ export default function Hero() {
             <br /> your Loved Ones Left
             <br /> Behind
           </p>
-          <p className="text-gray-400 lg:leading-8 leading-10 text-center lg:text-left mt-4">
+          <p className="text-gray-400 leading-8  text-center lg:text-left mt-4">
             We are <span className="text-blue-400">AssetLocka</span>, a
             retirement exit{" "}
             <TypeAnimation
