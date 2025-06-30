@@ -1,7 +1,7 @@
 import Link from "next/link";
 export default function Plan() {
   return (
-    <div className="w-[100%] py-20 lg:px-[2.5rem] px-[1rem] ">
+    <div className="w-[100%] py-20 lg:px-[2.5rem] px-[1rem] mt-56 lg:mt-10 ">
       <div
         data-aos="fade-up"
         className="w-full flex justify-center items-center "
