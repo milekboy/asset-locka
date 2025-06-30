@@ -5,7 +5,7 @@ import { TypeAnimation } from "react-type-animation";
 export default function Hero() {
   return (
     <div className="w-[100%] lg:flex h-screen lg:-mt-[83px]">
-      <div className="lg:w-[50%] px-[2.5rem] flex  items-center">
+      <div className="lg:w-[50%] lg:px-[2.5rem] px-[1rem] flex  items-center">
         <div className="w-full mt-10 lg:mt-0">
           <p className="lg:text-4xl text-2xl font-extrabold tracking-normal lg:leading-12 text-center lg:text-left">
             Search For <span className="text-blue-400">Assets</span>,
