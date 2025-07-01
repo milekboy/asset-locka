@@ -60,3 +60,17 @@ body {
   --tw-text-opacity: 1 !important;
   color: rgba(71, 85, 105, var(--tw-text-opacity)) !important;
 }
+@layer components {
+  .input-text {
+    @apply w-full rounded-md border border-gray-300 bg-white py-3 px-4 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition;
+  }
+  .btn-primary {
+    @apply rounded-md bg-blue-600 text-white hover:bg-blue-700 transition;
+  }
+  .btn-outline {
+    @apply rounded-md border border-gray-300 py-3 px-4 hover:bg-gray-50 transition;
+  }
+  .link {
+    @apply text-blue-600 hover:underline;
+  }
+}

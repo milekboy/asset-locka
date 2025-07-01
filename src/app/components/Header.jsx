@@ -114,7 +114,7 @@ export default function Header({
             <Link href="/login" className="btn-accent hover-up-2">
               Log In
             </Link>
-            <Link href="/register" className="btn-primary hover-up-2">
+            <Link href="/signup" className="btn-primary hover-up-2">
               Sign Up
             </Link>
           </div>
@@ -172,7 +172,7 @@ export default function Header({
               <Link href="/login">
                 <li onClick={navHandler}>Log In</li>
               </Link>
-              <Link href="/register">
+              <Link href="/signup">
                 <li onClick={navHandler}>Sign Up</li>
               </Link>
 
