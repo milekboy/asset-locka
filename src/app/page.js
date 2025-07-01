@@ -1,3 +1,8 @@
+"use client";
+import { useRef, useEffect } from "react";
+import { Suspense } from "react";
+import AOSProvider from "./components/AosProvider";
+import { useSearchParams } from "next/navigation";
 import Header from "./components/Header";
 import HeadContact from "./components/HeadContact";
 import Hero from "./components/Hero";
@@ -7,17 +12,57 @@ import Secure from "./components/Secure";
 import Plan from "./components/Plans";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+
+function ScrollHandler({ featuresRef, contactRef, secureRef }) {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const scrollTarget = searchParams.get("scroll");
+    if (scrollTarget === "contact") {
+      contactRef.current?.scrollIntoView({ behavior: "smooth" });
+    } else if (scrollTarget === "services") {
+      featuresRef.current?.scrollIntoView({ behavior: "smooth" });
+    } else if (scrollTarget === "secure") {
+      secureRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [searchParams, contactRef, featuresRef, secureRef]);
+
+  return null;
+}
+
 export default function Home() {
+  const contactRef = useRef(null);
+  const featuresRef = useRef(null);
+  const secureRef = useRef(null);
+
   return (
-    <div className="h-screen">
+    <div>
+      <AOSProvider />
       <HeadContact />
-      <Header />
+      <Header
+        handleContactClick={() =>
+          contactRef.current?.scrollIntoView({ behavior: "smooth" })
+        }
+        handleServicesClick={() =>
+          featuresRef.current?.scrollIntoView({ behavior: "smooth" })
+        }
+        handleSecureClick={() =>
+          secureRef.current?.scrollIntoView({ behavior: "smooth" })
+        }
+      />
+      <Suspense fallback={null}>
+        <ScrollHandler
+          contactRef={contactRef}
+          featuresRef={featuresRef}
+          secureRef={secureRef}
+        />
+      </Suspense>
       <Hero />
       <DontSuffer />
-      <Features />
-      <Secure />
+      <Features ref={featuresRef} />
+      <Secure ref={secureRef} />
       <Plan />
-      <Contact />
+      <Contact ref={contactRef} />
       <Footer />
     </div>
   );

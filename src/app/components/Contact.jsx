@@ -1,22 +1,26 @@
-import Link from "next/link";
-import { FiPhone } from "react-icons/fi";
-import { FiMail } from "react-icons/fi";
+import React, { forwardRef } from "react";
+import { FiPhone, FiMail } from "react-icons/fi";
 import { GrLocation } from "react-icons/gr";
+import useHasMounted from "./hooks/useHasMounted";
 
-export default function Contact() {
+const Contact = (props, ref) => {
+  const hasMounted = useHasMounted();
+
   return (
-    <div className="w-[100%] py-20 lg:px-[2.5rem] px-[1rem] ">
-      <div
-        data-aos="fade-up"
-        className="w-full flex justify-center items-center "
-      >
+    <div
+      ref={ref}
+      // {...(hasMounted ? { "data-aos": "fade-up" } : {})}
+      className="w-[100%] py-20 lg:px-[2.5rem] px-[1rem]"
+    >
+      <div className="w-full flex justify-center items-center">
         <div className="space-y-">
-          <p className="text-center lg:text-4xl text-2xl font-extrabold tracking-normal lg:leading-12 ">
+          <p className="text-center lg:text-4xl text-2xl font-extrabold tracking-normal lg:leading-12">
             Get in touch!
           </p>
-          <p className="text-gray-400 leading-8 text- text-center">
+          <p className="text-gray-400 leading-8 text-center">
             We will be glad to hear from you
           </p>
+
           <div className="grid grid-cols-2 gap-4 mt-6 lg:flex lg:justify-center lg:gap-10">
             {/* Phone */}
             <div className="flex justify-center items-center w-full">
@@ -56,8 +60,12 @@ export default function Contact() {
           </div>
         </div>
       </div>
-      <section data-aos="fade-up" className="px-4  py-10 lg:px-20 bg-white">
-        <div className="max-w-6xl mx-auto bg-white rounded-lg  p-8">
+
+      <section
+        // {...(hasMounted ? { "data-aos": "fade-up" } : {})}
+        className="px-4 py-10 lg:px-20 bg-white"
+      >
+        <div className="max-w-6xl mx-auto bg-white rounded-lg p-8">
           <form className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Department radio buttons */}
             <div className="col-span-2 flex items-center lg:gap-6 gap-4">
@@ -91,7 +99,7 @@ export default function Contact() {
             />
             <textarea
               placeholder="Message..."
-              className="col-span-2 lg:col-span-1 p-3 border border-gray-200 rounded-md  focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="col-span-2 lg:col-span-1 p-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             ></textarea>
 
             <input
@@ -123,4 +131,6 @@ export default function Contact() {
       </section>
     </div>
   );
-}
+};
+
+export default forwardRef(Contact);

@@ -2,20 +2,24 @@
 import { useState, useEffect } from "react";
 import { FaFacebookF } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
-
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
 import Image from "next/image";
 
-export default function Header() {
-  const navHandler = () => {
-    setMenuOpen(false);
-  };
+export default function Header({
+  handleContactClick,
+  handleServicesClick,
+  handleSecureClick,
+}) {
+  const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10); // adjust scroll distance if needed
+      setScrolled(window.scrollY > 10);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -23,11 +27,35 @@ export default function Header() {
   }, []);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const navHandler = () => setMenuOpen(false);
+
+  const scrollToServices = () => {
+    if (pathname !== "/") {
+      router.push("/?scroll=services");
+    } else {
+      handleServicesClick();
+    }
+  };
+
+  const scrollToContact = () => {
+    if (pathname !== "/") {
+      router.push("/?scroll=contact");
+    } else {
+      handleContactClick();
+    }
+  };
+
+  const scrollToSecure = () => {
+    if (pathname !== "/") {
+      router.push("/?scroll=contact");
+    } else {
+      handleSecureClick();
+    }
+  };
 
   return (
     <header
-      className={`sticky top-0 z-50 lg:px-[1.5rem]  transition-colors duration-300 ${
+      className={`sticky top-0 z-50 lg:px-[1.5rem] transition-colors duration-300 ${
         scrolled ? "bg-white shadow-md" : "bg-transparent"
       }`}
     >
@@ -53,21 +81,17 @@ export default function Header() {
                 Home
               </Link>
             </li>
-            <li>
-              <Link
-                href="/about"
-                className="text-sm font-semibold text-blueGray-600 hover:text-blueGray-500 tracking-wide"
-              >
-                About Us
-              </Link>
+            <li
+              onClick={scrollToSecure}
+              className="text-sm font-semibold cursor-pointer text-blueGray-600 hover:text-blueGray-500 tracking-wide"
+            >
+              About Us
             </li>
-            <li>
-              <Link
-                href="/services"
-                className="text-sm font-semibold text-blueGray-600 hover:text-blueGray-500 tracking-wide"
-              >
-                Services
-              </Link>
+            <li
+              className="text-sm font-semibold text-blueGray-600 hover:text-blueGray-500 tracking-wide cursor-pointer"
+              onClick={scrollToServices}
+            >
+              Services
             </li>
             <li>
               <Link
@@ -77,13 +101,11 @@ export default function Header() {
                 Company
               </Link>
             </li>
-            <li>
-              <Link
-                href="/contact"
-                className="text-sm font-semibold text-blueGray-600 hover:text-blueGray-500 tracking-wide"
-              >
-                Contact
-              </Link>
+            <li
+              onClick={scrollToContact}
+              className="text-sm font-semibold text-blueGray-600 hover:text-blueGray-500 tracking-wide cursor-pointer"
+            >
+              Contact
             </li>
           </ul>
 
@@ -99,8 +121,9 @@ export default function Header() {
 
           {/* Mobile Menu */}
           <div
-            className={`fixed top-0 left-0 h-full w-[80%] bg-white shadow-lg transition-transform duration-300 z-40 
-    ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
+            className={`fixed top-0 left-0 h-full w-[80%] bg-white shadow-lg transition-transform duration-300 z-40 ${
+              menuOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
           >
             <div className="flex px-4 justify-between mt-6">
               <Link href="/">
@@ -123,56 +146,40 @@ export default function Header() {
               <Link href="/">
                 <li onClick={navHandler}>Home</li>
               </Link>
+              <Link href="/about">
+                <li onClick={navHandler}>About Us</li>
+              </Link>
               <li
                 onClick={() => {
                   setMenuOpen(false);
-                  handleCategoryClick();
-                }}
-              >
-                About Us
-              </li>
-              <li
-                onClick={() => {
-                  setMenuOpen(false);
-                  handleProductClick();
+                  scrollToServices();
                 }}
               >
                 Services
               </li>
-              <Link href="/shop">
-                <li onClick={navHandler}>Portfolio</li>
+              <Link href="/services">
+                <li onClick={navHandler}>Company</li>
               </Link>
-              <Link href="/customize">
-                <li onClick={navHandler}>Pricing</li>
+              <li
+                onClick={() => {
+                  setMenuOpen(false);
+                  scrollToContact();
+                }}
+              >
+                Contact
+              </li>
+
+              <Link href="/login">
+                <li onClick={navHandler}>Log In</li>
+              </Link>
+              <Link href="/register">
+                <li onClick={navHandler}>Sign Up</li>
               </Link>
 
-              <Link href="/review-order">
-                <li onClick={navHandler}>Team</li>
-              </Link>
-              <Link href="/review-order">
-                <li onClick={navHandler}>Blog</li>
-              </Link>
-              <Link href="/review-order">
-                <li onClick={navHandler}>Faqs</li>
-              </Link>
-              <Link href="/review-order">
-                <li onClick={navHandler}>Testimonial</li>
-              </Link>
-              <Link href="/review-order">
-                <li onClick={navHandler}>Contact Us</li>
-              </Link>
-
-              <Link href="/login" className="btn-accent hover-up-2">
-                Log In
-              </Link>
-
-              <Link href="/register" className="btn-primary hover-up-2">
-                Sign Up
-              </Link>
               <div>
                 <p className="text-sm mt-8">
                   Get in touch{" "}
-                  <span className="text-blue-600  cursor-pointer">
+                  <span className="text-blue-600 cursor-pointer">
                     contact@assetlocka.com
                   </span>
                 </p>
@@ -183,11 +190,10 @@ export default function Header() {
             </ul>
           </div>
 
-          {/* Optional background overlay */}
-          {menuOpen && <></>}
+          {/* Mobile Menu Toggle */}
           <div className="lg:hidden">
             <button
-              onClick={() => setMenuOpen(!menuOpen)}
+              onClick={toggleMenu}
               className="navbar-burger flex items-center py-2 px-3 text-blue-500 hover:text-blue-700 border border-blue-200 hover:border-blue-300 rounded"
             >
               <svg className="fill-current h-4 w-4" viewBox="0 0 20 20">

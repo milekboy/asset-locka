@@ -1,11 +1,13 @@
 import Link from "next/link";
+import useHasMounted from "./hooks/useHasMounted";
 export default function Plan() {
+  const hasMounted = useHasMounted();
   return (
-    <div className="w-[100%] py-20 lg:px-[2.5rem] px-[1rem] mt-56 lg:mt-10 ">
-      <div
-        data-aos="fade-up"
-        className="w-full flex justify-center items-center "
-      >
+    <div
+      // {...(hasMounted && { "data-aos": "fade-up" })}
+      className="w-[100%] py-20 lg:px-[2.5rem] px-[1rem] mt-56 lg:mt-10 "
+    >
+      <div className="w-full flex justify-center items-center ">
         <div className="space-y-4">
           <p className="text-center lg:text-4xl text-2xl font-extrabold tracking-normal lg:leading-12 ">
             Choose Your <br />
@@ -31,11 +33,11 @@ export default function Plan() {
         </div>
       </div>
       <div
-        data-aos="fade-up"
+        // {...(typeof window !== "undefined" && { "data-aos": "fade-up" })}
         className="lg:flex w-[100%]  lg:h-96 h-screen mt-10"
       >
         <div
-          data-aos="fade-up"
+          // {...(typeof window !== "undefined" && { "data-aos": "fade-up" })}
           className=" bg-blue-500 lg:w-[40%] h-[50%] lg:h-full flex justify-center items-center text-white text-center px-28 py-5 lg:py-0"
         >
           <div>
@@ -46,7 +48,7 @@ export default function Plan() {
           </div>
         </div>
         <div
-          data-aos="fade-up"
+          // {...(typeof window !== "undefined" && { "data-aos": "fade-up" })}
           className="shadow-md  lg:w-[60%] h-[50%] lg:h-full  py-5 lg:py-0 flex items-center  ps-5"
         >
           <div>

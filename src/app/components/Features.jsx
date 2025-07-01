@@ -1,12 +1,13 @@
+import React, { forwardRef } from "react";
 import FeaturesCard from "./FeaturesCard";
-import { TbChartCandle } from "react-icons/tb";
-
+import { TbChartCandle, TbChartBarPopular } from "react-icons/tb";
 import { AiOutlinePieChart } from "react-icons/ai";
-import { TbChartBarPopular } from "react-icons/tb";
-
 import { LuBriefcaseBusiness } from "react-icons/lu";
+import useHasMounted from "./hooks/useHasMounted";
 
-const Features = () => {
+const Features = forwardRef((props, ref) => {
+  const hasMounted = useHasMounted();
+
   const features = [
     {
       icon: <TbChartCandle />,
@@ -35,7 +36,11 @@ const Features = () => {
   ];
 
   return (
-    <section className="pt-16 px-[1rem] lg:px-0  ">
+    <section
+      ref={ref}
+      // {...(hasMounted ? { "data-aos": "fade-up" } : {})}
+      className="pt-16 px-[1rem] lg:px-0"
+    >
       <div className="max-w-7xl mx-auto lg:px-[2.5rem] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {features.map((f, i) => (
           <FeaturesCard key={i} {...f} />
@@ -43,6 +48,6 @@ const Features = () => {
       </div>
     </section>
   );
-};
+});
 
 export default Features;
