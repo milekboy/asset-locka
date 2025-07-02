@@ -5,15 +5,26 @@ import Link from "next/link";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
+import HeadContact from "../components/HeadContact";
 
 export default function Login() {
   const [showPwd, setShowPwd] = useState(false);
 
   return (
     <div>
+      <HeadContact />
       <Header />
 
-      <div className="w-full h-screen lg:flex">
+      <div className="w-full lg:h-screen lg:flex pb-16 lg:pb-0">
+        <div className="w-full hidden lg:w-1/2 lg:flex justify-center items-center mt-5 lg:mt-0">
+          <Image
+            src="/locka_files/space.svg"
+            alt="Rocket illustration"
+            width={500}
+            height={500}
+            priority
+          />
+        </div>
         <div className="w-full lg:w-1/2 flex justify-center items-center mt-10 lg:mt-0">
           <form
             className="w-[90%] max-w-md space-y-6"
@@ -96,17 +107,6 @@ export default function Login() {
               </Link>
             </p>
           </form>
-        </div>
-
-        {/* ── RIGHT: illustration ────────────────────────────── */}
-        <div className="w-full lg:w-1/2 flex justify-center items-center mt-5 lg:mt-0">
-          <Image
-            src="/locka_files/space.svg"
-            alt="Rocket illustration"
-            width={500}
-            height={500}
-            priority
-          />
         </div>
       </div>
 

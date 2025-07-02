@@ -1,5 +1,9 @@
 import DashboardLayout from "../components/DashboardLayout";
 import { HiOutlineTrash } from "react-icons/hi2";
+import { FcDocument } from "react-icons/fc";
+import { FaSearchLocation } from "react-icons/fa";
+import { FaPerson } from "react-icons/fa6";
+
 import Link from "next/link";
 import { IoIosWarning } from "react-icons/io";
 export default function DashboardHome() {
@@ -12,35 +16,52 @@ export default function DashboardHome() {
   return (
     <DashboardLayout>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-10 lg:mt-0">
-        <div className="bg-white rounded-lg p-6 flex items-center gap-3 shadow-sm">
-          <p className="text-lg text-blue-400 font-semibold">6</p>
-          <span className="font-medium">Listed Assets</span>
-          <Link
-            href="/login"
-            className="btn-primary  hover-up-2 ml-auto  text-center h-10 flex justify-center items-center"
-          >
-            View
-          </Link>
+        <div className="bg-white rounded-lg p-6  items-center  shadow-sm">
+          <div className="flex gap-3">
+            <FcDocument /> <p className="font-medium">Listed Assets</p>
+          </div>
+
+          <div className="flex gap-3">
+            <p className="text-lg text-blue-400 font-semibold mt-2">6</p>
+            <Link
+              href="/login"
+              className="btn-primary  hover-up-2 ml-auto  text-center h-10 flex justify-center items-center"
+            >
+              View
+            </Link>
+          </div>
         </div>
-        <div className="bg-white rounded-lg p-6 flex items-center gap-3 shadow-sm">
-          <p className="text-lg text-blue-400 font-semibold">2</p>
-          <span className="font-medium">Beneficiaries</span>
-          <Link
-            href="/login"
-            className="btn-primary  hover-up-2  ml-auto text-center h-10 flex justify-center items-center"
-          >
-            View
-          </Link>
+        <div className="bg-white rounded-lg p-6  items-center  shadow-sm">
+          <div className="flex gap-3">
+            <FaPerson className="text-blue-400" />{" "}
+            <p className="font-medium">Beneficiaries</p>
+          </div>
+
+          <div className="flex gap-3">
+            <p className="text-lg text-blue-400 font-semibold mt-2">2</p>
+            <Link
+              href="/login"
+              className="btn-primary  hover-up-2 ml-auto  text-center h-10 flex justify-center items-center"
+            >
+              View
+            </Link>
+          </div>
         </div>
-        <div className="bg-white rounded-lg p-6 flex items-center gap-3 shadow-sm">
-          <p className="text-lg text-blue-400 font-semibold">1</p>
-          <span className="font-medium">Tracked Assets</span>
-          <Link
-            href="/login"
-            className="btn-primary  hover-up-2  ml-auto text-center h-10 flex justify-center items-center"
-          >
-            View
-          </Link>
+        <div className="bg-white rounded-lg p-6  items-center  shadow-sm">
+          <div className="flex gap-3">
+            <FaSearchLocation className="text-blue-400 " />
+            <p className="font-medium">Searched Assets</p>
+          </div>
+
+          <div className="flex gap-3">
+            <p className="text-lg text-blue-400 font-semibold mt-2">1</p>
+            <Link
+              href="/login"
+              className="btn-primary  hover-up-2 ml-auto  text-center h-10 flex justify-center items-center"
+            >
+              View
+            </Link>
+          </div>
         </div>
       </div>
       <div className="bg-white rounded-lg p-6 flex items-center gap-3 shadow-sm mt-16">

@@ -10,6 +10,7 @@ import {
   MdAlternateEmail,
 } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
+import HeadContact from "../components/HeadContact";
 
 export default function Signup() {
   const [showPwd, setShowPwd] = useState(false);
@@ -17,6 +18,7 @@ export default function Signup() {
 
   return (
     <div>
+      <HeadContact />
       <Header />
 
       <div className="w-full min-h-screen flex flex-col items-center justify-start pt-14 lg:pb-14 lg:pt-20 bg-gray-50">

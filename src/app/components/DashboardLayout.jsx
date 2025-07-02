@@ -1,4 +1,5 @@
 import DashboardHeader from "./DashboardHeader";
+import Footer from "./Footer";
 import Sidebar from "./Sidebar";
 
 export default function DashboardLayout({ children }) {
@@ -13,6 +14,7 @@ export default function DashboardLayout({ children }) {
         <DashboardHeader />
         {/* pt-16 keeps content clear of the header */}
         <main className="pt-16 p-6 md:p-24 overflow-y-auto">{children}</main>
+        <Footer />
       </div>
     </div>
   );

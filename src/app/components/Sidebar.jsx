@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   HiOutlineMenu,
@@ -8,7 +9,6 @@ import {
   HiOutlinePlusCircle,
   HiOutlineSearch,
 } from "react-icons/hi";
-import { FaCircleUser } from "react-icons/fa6";
 
 const links = [
   { href: "/dashboard/beneficiary", label: "Add Beneficiary", icon: HiUserAdd },
@@ -46,7 +46,7 @@ export default function Sidebar() {
       )}
 
       <aside
-        className={`fixed  z-40 h-full w-64 bg-white shadow-lg md:shadow-none
+        className={`fixed  z-40 h-full  w-64 bg-white shadow-lg md:shadow-none
                     transition-transform duration-300 ease-in-out
                     ${
                       open
@@ -63,11 +63,15 @@ export default function Sidebar() {
         </div>
 
         {/* nav links */}
-        <div className="flex gap-3 px-7 mt-6 ">
-          <FaCircleUser className="text-4xl text-blue-400" />
-          <p className="font-extrabold text-gray-500">Hi, Wahab</p>
-        </div>
-        <nav className="mt-2 flex flex-col gap-2 px-4">
+
+        <Image
+          src="/locka_files/logo.svg"
+          alt="Logo"
+          width={100}
+          height={40}
+          className="h-10 w-auto px-7 mt-5 "
+        />
+        <nav className="mt-4 flex flex-col gap-2 px-4">
           {links.map(({ href, label, icon: Icon }) => (
             <Link
               key={href}
