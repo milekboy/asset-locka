@@ -57,8 +57,8 @@ export default function Sidebar() {
         {/* mobile close-bar */}
         <div className="flex items-center justify-between md:hidden p-4">
           <span className="font-semibold text-xl">Menu</span>
-          <button onClick={() => setOpen(false)} className="text-2xl">
-            <HiX />
+          <button onClick={() => setOpen(false)}>
+            <HiX className="text-2xl" />
           </button>
         </div>
 

@@ -11,7 +11,7 @@ export default function DashboardHome() {
 
   return (
     <DashboardLayout>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-10 lg:mt-0">
         <div className="bg-white rounded-lg p-6 flex items-center gap-3 shadow-sm">
           <p className="text-lg text-blue-400 font-semibold">6</p>
           <span className="font-medium">Listed Assets</span>
