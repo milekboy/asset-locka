@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -24,19 +24,20 @@ const links = [
   },
 ];
 
-export default function Sidebar() {
-  const [open, setOpen] = useState(false);
+export default function Sidebar({ open, setOpen }) {
+  // const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
-      {/* mobile hamburger */}
-      <button
-        className="md:hidden fixed top-4 left-4 z-40 text-2xl text-blue-500"
-        onClick={() => setOpen(true)}
-      >
-        <HiOutlineMenu />
-      </button>
-
       {/* overlay */}
       {open && (
         <div
@@ -46,7 +47,7 @@ export default function Sidebar() {
       )}
 
       <aside
-        className={`fixed  z-40 h-full  w-64 bg-white shadow-lg md:shadow-none
+        className={`fixed  z-40 h-full top-0  w-64 bg-white shadow-lg md:shadow-none
                     transition-transform duration-300 ease-in-out
                     ${
                       open
@@ -55,7 +56,7 @@ export default function Sidebar() {
                     }`}
       >
         {/* mobile close-bar */}
-        <div className="flex items-center justify-between md:hidden p-4">
+        <div className="flex items-center justify-between md:hidden p-4 mt-11">
           <span className="font-semibold text-xl">Menu</span>
           <button onClick={() => setOpen(false)}>
             <HiX className="text-2xl" />
@@ -69,7 +70,9 @@ export default function Sidebar() {
           alt="Logo"
           width={100}
           height={40}
-          className="h-10 w-auto px-7 mt-5 "
+          className={`h-10 w-auto px-7  lg:mt-14 ${
+            scrolled ? "mt-5" : "lg:mt-14"
+          }`}
         />
         <nav className="mt-4 flex flex-col gap-2 px-4">
           {links.map(({ href, label, icon: Icon }) => (
