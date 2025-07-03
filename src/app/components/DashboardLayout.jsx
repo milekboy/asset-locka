@@ -10,10 +10,11 @@ export default function DashboardLayout({ children }) {
 
   return (
     /* column layout ── top-bar, then body row, then footer  */
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-slate-40 flex flex-col">
       {/* ── TOP BAR (full-width) ─────────────────────────── */}
-      <HeadContact />
-
+      <div className="bg-black py-[10px] top-0 right-0 z-50 text-white text-center w-full ">
+        Contact us: +2347035361770
+      </div>
       {/* ── BODY: sidebar + main pane ────────────────────── */}
       <div className="flex flex-1">
         <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
@@ -22,7 +23,7 @@ export default function DashboardLayout({ children }) {
         <div className="flex-1 md:ml-64 flex flex-col">
           <DashboardHeader onBurgerClick={() => setSidebarOpen(true)} />
 
-          <main className="flex-1 pt-16 p-6 md:p-24 ">{children}</main>
+          <main className="flex-1 pt-16 lg:p-6 md:p-24 ">{children}</main>
 
           <Footer />
         </div>
