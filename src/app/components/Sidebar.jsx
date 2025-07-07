@@ -9,9 +9,11 @@ import {
   HiOutlinePlusCircle,
   HiOutlineSearch,
 } from "react-icons/hi";
+import { FaHome } from "react-icons/fa";
 
 const links = [
-  { href: "/dashboard/beneficiary", label: "Add Beneficiary", icon: HiUserAdd },
+  { href: "/dashboard", label: "Home", icon: FaHome },
+  { href: "/beneficiary", label: "Add Beneficiary", icon: HiUserAdd },
   {
     href: "/dashboard/assets/new",
     label: "Add Assets",
@@ -47,7 +49,7 @@ export default function Sidebar({ open, setOpen }) {
       )}
 
       <aside
-        className={`fixed  z-40 h-full top-0  w-64 bg-white shadow-lg md:shadow-none
+        className={`fixed border-r-2 border-gray-200  z-40 h-full top-0  w-64 bg-white shadow-lg md:shadow-none
                     transition-transform duration-300 ease-in-out
                     ${
                       open

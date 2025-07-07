@@ -1,7 +1,10 @@
 "use client";
 import { useState } from "react";
+import Spinner from "../components/Spinner";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import Toast from "../components/Toast";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import {
@@ -11,13 +14,59 @@ import {
 } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import HeadContact from "../components/HeadContact";
-
+import NetworkInstance from "../components/NetworkInstance";
 export default function Signup() {
+  const router = useRouter();
+  const [toast, setToast] = useState(null);
   const [showPwd, setShowPwd] = useState(false);
   const [showPwd2, setShowPwd2] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const networkInstance = NetworkInstance();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const response = await networkInstance.post(`/api/register`, {
+        email,
+        first_name: firstName,
+        last_name: lastName,
+        password,
+        password_confirmation: confirmPassword,
+      });
+      if (response.status === 200) {
+        setToast({ message: "Signup successful!", type: "success" });
+
+        localStorage.setItem("token", response.token);
+        setTimeout(() => {
+          setToast(null);
+          router.push("/dashboard");
+        }, 1500);
+        setLoading(false);
+      }
+    } catch (error) {
+      setLoading(false);
+      setToast({
+        message: "Invalid credentials. Please try again.",
+        type: "error",
+      });
+    }
+  };
 
   return (
     <div>
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
+      {loading && <Spinner />}
       <HeadContact />
       <Header />
 
@@ -25,10 +74,7 @@ export default function Signup() {
         {/* Card */}
         <form
           className="w-[92%] max-w-md bg-white shadow-sm rounded-lg px-8 py-10 space-y-6"
-          onSubmit={(e) => {
-            e.preventDefault();
-            // TODO: handle sign-up
-          }}
+          onSubmit={handleSubmit}
         >
           <h1 className="text-3xl font-semibold text-center">
             Create an Account
@@ -36,11 +82,25 @@ export default function Signup() {
 
           {/* Username */}
           <label className="relative block">
-            <span className="sr-only">Username</span>
+            <span className="sr-only">First Name</span>
             <input
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
               type="text"
               required
-              placeholder="Username"
+              placeholder="First Name"
+              className="input-text pl-12"
+            />
+            <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+          </label>
+          <label className="relative block">
+            <span className="sr-only">Last Name</span>
+            <input
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              type="text"
+              required
+              placeholder="Last Name"
               className="input-text pl-12"
             />
             <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -50,6 +110,8 @@ export default function Signup() {
           <label className="relative block">
             <span className="sr-only">Email</span>
             <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               type="email"
               required
               placeholder="Email"
@@ -62,6 +124,8 @@ export default function Signup() {
           <label className="relative block">
             <span className="sr-only">Password</span>
             <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               type={showPwd ? "text" : "password"}
               required
               placeholder="Enter your password"
@@ -84,6 +148,8 @@ export default function Signup() {
           <label className="relative block">
             <span className="sr-only">Confirm password</span>
             <input
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               type={showPwd2 ? "text" : "password"}
               required
               placeholder="Confirm password"
@@ -107,7 +173,7 @@ export default function Signup() {
             <input
               type="checkbox"
               required
-              className="mt-[3px] h-4 w-4 shrink-0 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="mt-[3px] cursor-pointer h-4 w-4 shrink-0 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
             />
             <span>
               I agree to&nbsp;

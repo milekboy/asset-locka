@@ -1,17 +1,63 @@
 "use client";
 import { useState } from "react";
+import Toast from "../components/Toast";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import NetworkInstance from "../components/NetworkInstance";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import HeadContact from "../components/HeadContact";
-
+import Spinner from "../components/Spinner";
 export default function Login() {
+  const router = useRouter();
+  const networkInstance = NetworkInstance();
   const [showPwd, setShowPwd] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [toast, setToast] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const response = await networkInstance.post(`/api/login`, {
+        email,
+        password,
+      });
+      // console.log("network response →", response);
+      if (response.status === 200) {
+        console.log(response.data.token);
+        localStorage.setItem("token", response.data.token);
+        setToast({ message: "Login successful!", type: "success" });
+
+        setTimeout(() => {
+          setToast(null);
+          router.push("/dashboard");
+        }, 1500);
+        setLoading(false);
+      }
+    } catch (error) {
+      setLoading(false);
+      setToast({
+        message: "Invalid credentials. Please try again.",
+        type: "error",
+      });
+    }
+  };
 
   return (
     <div>
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
+      {loading && <Spinner />}
       <HeadContact />
       <Header />
 
@@ -26,13 +72,7 @@ export default function Login() {
           />
         </div>
         <div className="w-full lg:w-1/2 flex justify-center items-center mt-10 lg:mt-0">
-          <form
-            className="w-[90%] max-w-md space-y-6"
-            onSubmit={(e) => {
-              e.preventDefault();
-              // TODO: handle sign-in
-            }}
-          >
+          <form className="w-[90%] max-w-md space-y-6" onSubmit={handleSubmit}>
             <h1 className="text-3xl font-semibold mb-2">
               Welcome back to <span className="text-blue-600">AssetLocka</span>{" "}
             </h1>
@@ -41,6 +81,8 @@ export default function Login() {
             <label className="block">
               <span className="sr-only">Email</span>
               <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 required
                 placeholder="name@email.com"
@@ -52,6 +94,8 @@ export default function Login() {
             <label className="relative block">
               <span className="sr-only">Password</span>
               <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 type={showPwd ? "text" : "password"}
                 required
                 placeholder="Enter your password"

@@ -1,12 +1,50 @@
+"use client";
+import { useState } from "react";
 import DashboardLayout from "../components/DashboardLayout";
 import { HiOutlineTrash } from "react-icons/hi2";
+import NetworkInstance from "../components/NetworkInstance";
 import { FcDocument } from "react-icons/fc";
 import { FaSearchLocation } from "react-icons/fa";
 import { FaPerson } from "react-icons/fa6";
-
+import Toast from "../components/Toast";
+import Spinner from "../components/Spinner";
 import Link from "next/link";
 import { IoIosWarning } from "react-icons/io";
 export default function DashboardHome() {
+  const [toast, setToast] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const networkInstance = NetworkInstance();
+  const handleinkRequest = async (e) => {
+    setLoading(true);
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await networkInstance.post(
+        `/api/email/verification-notification`,
+        { email: "wahabtijani85@gmail.com" },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setLoading(false);
+        setToast({
+          message: "Verification link has been sent!",
+          type: "success",
+        });
+      }
+    } catch (error) {
+      setLoading(false);
+      setToast({
+        message: "Please try again.",
+        type: "error",
+      });
+    }
+  };
+
   const rows = [
     { property: "2016 Toyota Corolla", assigned: "Bose Tomilade" },
     { property: "2-Bedroom Flat · Lekki", assigned: "Wahab Tijani" },
@@ -15,6 +53,15 @@ export default function DashboardHome() {
 
   return (
     <DashboardLayout>
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
+      {loading && <Spinner />}
+
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-10 lg:mt-0">
         <div className="bg-white rounded-lg p-6  items-center  shadow-sm">
           <div className="flex gap-3">
@@ -72,7 +119,10 @@ export default function DashboardHome() {
           </p>
           <p>
             Please verify your email address to access all features.{" "}
-            <span className="underline cursor-pointer">
+            <span
+              onClick={handleinkRequest}
+              className="underline cursor-pointer"
+            >
               Click here to resend verification email
             </span>
           </p>
