@@ -4,12 +4,13 @@ import HeadContact from "./HeadContact";
 import Sidebar from "./Sidebar";
 import DashboardHeader from "./DashboardHeader";
 import Footer from "./Footer";
+import { AuthProvider } from "./AuthContext";
 
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    /* column layout ── top-bar, then body row, then footer  */
+    // <AuthProvider>
     <div className="min-h-screen bg-slate-40 flex flex-col">
       {/* ── TOP BAR (full-width) ─────────────────────────── */}
       <div className="bg-black py-[10px] top-0 right-0 z-50 text-white text-center w-full ">
@@ -29,5 +30,6 @@ export default function DashboardLayout({ children }) {
         </div>
       </div>
     </div>
+    // </AuthProvider>
   );
 }

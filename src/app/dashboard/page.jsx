@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useAuth } from "../components/AuthContext";
 import DashboardLayout from "../components/DashboardLayout";
 import { HiOutlineTrash } from "react-icons/hi2";
 import NetworkInstance from "../components/NetworkInstance";
@@ -11,6 +12,7 @@ import Spinner from "../components/Spinner";
 import Link from "next/link";
 import { IoIosWarning } from "react-icons/io";
 export default function DashboardHome() {
+  const { user } = useAuth();
   const [toast, setToast] = useState(null);
   const [loading, setLoading] = useState(false);
   const networkInstance = NetworkInstance();
@@ -21,7 +23,7 @@ export default function DashboardHome() {
     try {
       const response = await networkInstance.post(
         `/api/email/verification-notification`,
-        { email: "wahabtijani85@gmail.com" },
+        { email: user.email },
         {
           headers: {
             Authorization: `Bearer ${token}`,

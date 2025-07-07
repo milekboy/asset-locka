@@ -1,7 +1,8 @@
-import Image from "next/image";
+import { useAuth } from "./AuthContext";
 import { FaCircleUser } from "react-icons/fa6";
 import { HiOutlineMenu } from "react-icons/hi";
 export default function DashboardHeader({ onBurgerClick }) {
+  const { user } = useAuth();
   return (
     <>
       <header
@@ -17,7 +18,9 @@ export default function DashboardHeader({ onBurgerClick }) {
             <HiOutlineMenu />
           </button>
           <FaCircleUser className="text-4xl text-blue-400" />
-          <p className="font-extrabold text-gray-500 mt-2">Hi, Wahab</p>
+          <p className="font-extrabold text-gray-500 mt-2">
+            Hi, {user ? <span> {user.first_name}!</span> : <span> Waab</span>}
+          </p>
         </div>
       </header>
     </>

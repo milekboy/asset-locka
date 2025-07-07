@@ -6,6 +6,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "./components/AuthContext";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -23,7 +24,9 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={montserrat.className}>{children}</body>
+      <AuthProvider>
+        <body className={montserrat.className}>{children}</body>
+      </AuthProvider>
     </html>
   );
 }

@@ -42,9 +42,10 @@ export default function Signup() {
         setToast({ message: "Signup successful!", type: "success" });
 
         localStorage.setItem("token", response.token);
+
         setTimeout(() => {
           setToast(null);
-          router.push("/dashboard");
+          router.push("/kyc-verification");
         }, 1500);
         setLoading(false);
       }
