@@ -36,11 +36,11 @@ export default function Login() {
         login({ user, token });
 
         setToast({ message: message || "Login successful!", type: "success" });
-
-        setTimeout(() => {
-          setToast(null);
+        if (user.identity_verified === 0) {
           router.push("/kyc-verification");
-        }, 1500);
+        } else {
+          router.push("/dashboard");
+        }
       }
     } catch (error) {
       setToast({

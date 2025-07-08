@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useAuth } from "./AuthContext";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -9,17 +10,13 @@ import {
   HiOutlineSearch,
 } from "react-icons/hi";
 import { MdOutlineVerifiedUser } from "react-icons/md";
-
 import { FaHome } from "react-icons/fa";
+import { FaMedal } from "react-icons/fa";
 
 const links = [
   { href: "/dashboard", label: "Home", icon: FaHome },
   { href: "/add-beneficiary", label: "Add Beneficiary", icon: HiUserAdd },
-  {
-    href: "/add-asset",
-    label: "Add Assets",
-    icon: HiOutlinePlusCircle,
-  },
+  { href: "/add-asset", label: "Add Assets", icon: HiOutlinePlusCircle },
   {
     href: "/dashboard/assets/find",
     label: "Find Assets",
@@ -33,20 +30,17 @@ const links = [
 ];
 
 export default function Sidebar({ open, setOpen }) {
-  // const [open, setOpen] = useState(false);
+  const { user } = useAuth();
   const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <>
-      {/* overlay */}
       {open && (
         <div
           className="fixed inset-0 bg-black/30 z-30 md:hidden"
@@ -55,7 +49,7 @@ export default function Sidebar({ open, setOpen }) {
       )}
 
       <aside
-        className={`fixed border-r-2 border-gray-200  z-40 h-full top-0  w-64 bg-white shadow-lg md:shadow-none
+        className={`fixed border-r-2 border-gray-200 z-40 h-full top-0 w-64 bg-white shadow-lg
                     transition-transform duration-300 ease-in-out
                     ${
                       open
@@ -71,17 +65,18 @@ export default function Sidebar({ open, setOpen }) {
           </button>
         </div>
 
-        {/* nav links */}
-
+        {/* logo */}
         <Image
           src="/locka_files/logo.svg"
           alt="Logo"
           width={100}
           height={40}
-          className={`h-10 w-auto px-7  lg:mt-14 ${
+          className={`h-10 w-auto px-7 lg:mt-14 ${
             scrolled ? "mt-5" : "lg:mt-14"
           }`}
         />
+
+        {/* nav links */}
         <nav className="mt-4 flex flex-col gap-2 px-4">
           {links.map(({ href, label, icon: Icon }) => (
             <Link
@@ -96,6 +91,18 @@ export default function Sidebar({ open, setOpen }) {
             </Link>
           ))}
         </nav>
+
+        {/* bronze plan badge */}
+        {user?.plan && (
+          <div className="mt-6 px-4">
+            <div className="flex items-center gap-2 bg-[#cd7f32]/20 p-2 rounded-md">
+              <FaMedal className="text-[#cd7f32] text-xl" />
+              <span className="font-semibold text-[#cd7f32] capitalize">
+                {user.plan} plan
+              </span>
+            </div>
+          </div>
+        )}
       </aside>
     </>
   );
