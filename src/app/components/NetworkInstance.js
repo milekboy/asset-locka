@@ -2,7 +2,7 @@ import axios from "axios";
 
 const NetworkInstance = () => {
   return axios.create({
-    baseURL: "http://api.assetlocka.com",
+    baseURL: "https://api.assetlocka.com",
   });
 };
 

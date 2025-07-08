@@ -125,7 +125,7 @@ export default function Login() {
               <input
                 type="checkbox"
                 required
-                className="mt-[3px] h-4 w-4 shrink-0 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="mt-[3px] cursor-pointer h-4 w-4 shrink-0 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
               />
               <span>
                 I agree to the&nbsp;
