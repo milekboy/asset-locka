@@ -67,7 +67,7 @@ export default function AddAsset() {
     console.log("Submitting asset payload:", payload);
 
     try {
-      const { data } = await networkInstance.post("/api/assets", payload, {
+      const { data } = await networkInstance.post("/api/asset", payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -103,9 +103,9 @@ export default function AddAsset() {
       )}
       {loading && <Spinner />}
 
-      <div className="max-w-2xl mx-auto mt-8 bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="max-w-2xl mx-auto mt-8 bg-white rounded-lg px-4 lg:px-0 shadow-lg overflow-hidden">
         {/* header bar */}
-        <div className="bg-blue-500 px-6 py-4">
+        <div className="bg-blue-500 rounded-t-md px-6 py-4">
           <h2 className="text-white text-xl font-semibold">Add Asset</h2>
         </div>
 
@@ -166,7 +166,7 @@ export default function AddAsset() {
               <select
                 value={categoryId || ""}
                 onChange={handleCategoryChange}
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                className="w-full border cursor-pointer border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
                 required
               >
                 <option value="" disabled>
@@ -185,7 +185,7 @@ export default function AddAsset() {
                 value={subcategoryId || ""}
                 onChange={(e) => setSubcategoryId(Number(e.target.value))}
                 disabled={!categoryId}
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                className="w-full border  cursor-pointer border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
                 required
               >
                 <option value="" disabled>

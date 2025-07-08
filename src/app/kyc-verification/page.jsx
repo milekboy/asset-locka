@@ -67,12 +67,16 @@ export default function DashboardHome() {
       )}
       {loading && <Spinner />}
 
-      <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md my-8">
+      <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md lg:my-8">
         {/* Banner */}
         <div className="flex items-center justify-center mb-4">
-          <HiShieldCheck className="text-2xl text-blue-500 mr-2" />
-          <h1 className="text-2xl font-semibold">Verify identity with BVN</h1>
+          {" "}
+          <HiShieldCheck className="text-3xl text-blue-500 text-center" />
         </div>
+
+        <h1 className="text-2xl font-semibold text-center">
+          Verify identity with BVN
+        </h1>
         <p className="text-center text-gray-600 mb-6">
           We’ll use your Bank Verification Number to confirm your identity. Your
           information is securely encrypted.

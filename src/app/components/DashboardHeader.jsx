@@ -18,7 +18,7 @@ export default function DashboardHeader({ onBurgerClick }) {
             <HiOutlineMenu />
           </button>
           <FaCircleUser className="text-4xl text-blue-400" />
-          <p className="font-extrabold text-gray-500 mt-2">
+          <p className="font-extrabold text-gray-500 mt-2 ">
             Hi, {user ? <span> {user.first_name}!</span> : <span> User</span>}
           </p>
         </div>

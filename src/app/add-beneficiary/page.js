@@ -90,9 +90,9 @@ export default function AddBeneficiary() {
       {loading && <Spinner />}
 
       {/* Card container */}
-      <div className="max-w-2xl mx-auto mt-8 bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="max-w-2xl mx-auto mt-8 bg-white rounded-lg px-4 lg:px-0 shadow-lg overflow-hidden">
         {/* Card header */}
-        <div className="bg-blue-500 px-6 py-4 flex items-center">
+        <div className="bg-blue-500 rounded-t-md px-6 py-4 flex items-center">
           <h2 className="text-white text-xl font-semibold flex-1">
             Add Beneficiary
           </h2>
