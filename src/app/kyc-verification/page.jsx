@@ -40,6 +40,10 @@ export default function DashboardHome() {
       );
 
       setToast({ message: data.message, type: "success" });
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 1500);
+      setLoading(false);
     } catch (err) {
       setToast({
         message:
@@ -47,16 +51,13 @@ export default function DashboardHome() {
           "Something went wrong. Please try again.",
         type: "error",
       });
-    } finally {
-      setTimeout(() => {
-        router.push("/login");
-      }, 1500);
       setLoading(false);
     }
   };
 
   return (
     <DashboardLayout>
+      {/* <Header /> */}
       {toast && (
         <Toast
           message={toast.message}
@@ -66,7 +67,7 @@ export default function DashboardHome() {
       )}
       {loading && <Spinner />}
 
-      <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+      <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md my-8">
         {/* Banner */}
         <div className="flex items-center justify-center mb-4">
           <HiShieldCheck className="text-2xl text-blue-500 mr-2" />
@@ -182,6 +183,7 @@ export default function DashboardHome() {
           .
         </p>
       </div>
+      {/* <Footer /> */}
     </DashboardLayout>
   );
 }

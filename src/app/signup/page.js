@@ -45,7 +45,7 @@ export default function Signup() {
 
         setTimeout(() => {
           setToast(null);
-          router.push("/kyc-verification");
+          router.push("/login");
         }, 1500);
         setLoading(false);
       }
@@ -189,7 +189,10 @@ export default function Signup() {
           </label>
 
           {/* Submit */}
-          <button type="submit" className="btn-primary w-full py-3 font-medium">
+          <button
+            type="submit"
+            className="btn-primary w-full py-3 cursor-pointer font-medium"
+          >
             Sign Up Now
           </button>
 

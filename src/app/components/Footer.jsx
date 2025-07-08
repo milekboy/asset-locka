@@ -29,7 +29,7 @@ export default function Footer() {
           <p>
             support@assetLocka.com
             <br />
-            234-703-536-1770
+            +234-703-536-1770
           </p>
           <p>© 2025. All rights reserved.</p>
           <FaFacebookF className="text-blue-400 text-lg" />

@@ -39,7 +39,7 @@ export default function Login() {
 
         setTimeout(() => {
           setToast(null);
-          router.push("/dashboard");
+          router.push("/kyc-verification");
         }, 1500);
       }
     } catch (error) {

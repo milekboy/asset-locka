@@ -3,17 +3,18 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  HiOutlineMenu,
   HiX,
   HiUserAdd,
   HiOutlinePlusCircle,
   HiOutlineSearch,
 } from "react-icons/hi";
+import { MdOutlineVerifiedUser } from "react-icons/md";
+
 import { FaHome } from "react-icons/fa";
 
 const links = [
   { href: "/dashboard", label: "Home", icon: FaHome },
-  { href: "/beneficiary", label: "Add Beneficiary", icon: HiUserAdd },
+  { href: "/add-beneficiary", label: "Add Beneficiary", icon: HiUserAdd },
   {
     href: "/dashboard/assets/new",
     label: "Add Assets",
@@ -23,6 +24,11 @@ const links = [
     href: "/dashboard/assets/find",
     label: "Find Assets",
     icon: HiOutlineSearch,
+  },
+  {
+    href: "/kyc-verification",
+    label: "Kyc Verification",
+    icon: MdOutlineVerifiedUser,
   },
 ];
 
