@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../components/AuthContext";
 import DashboardLayout from "../components/DashboardLayout";
 import { HiOutlineTrash } from "react-icons/hi2";
@@ -15,7 +15,41 @@ export default function DashboardHome() {
   const { user } = useAuth();
   const [toast, setToast] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [assets, setAssets] = useState([]);
+  const [beneficiaries, setBeneficiaries] = useState([]);
   const networkInstance = NetworkInstance();
+  useEffect(() => {
+    getAssets();
+    getBeneficiaries();
+  }, []);
+  const getAssets = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await networkInstance.get("/api/asset", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setAssets(res.data.data.data);
+      console.log(res.data.data.data);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    }
+  };
+  const getBeneficiaries = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await networkInstance.get("/api/beneficiary", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setBeneficiaries(res.data.data);
+      console.log(res.data.data);
+    } catch (error) {
+      console.error("Error fetching Beneficiaries:", error);
+    }
+  };
   const handleinkRequest = async (e) => {
     setLoading(true);
     const token = localStorage.getItem("token");
@@ -47,12 +81,6 @@ export default function DashboardHome() {
     }
   };
 
-  const rows = [
-    { property: "2016 Toyota Corolla", assigned: "Bose Tomilade" },
-    { property: "2-Bedroom Flat · Lekki", assigned: "Wahab Tijani" },
-    { property: "Land Plot · Abuja (400 sqm)", assigned: "Tosin Adeyemi" },
-  ];
-
   return (
     <DashboardLayout>
       {toast && (
@@ -71,13 +99,19 @@ export default function DashboardHome() {
           </div>
 
           <div className="flex gap-3">
-            <p className="text-lg text-blue-400 font-semibold mt-2">6</p>
-            <Link
-              href="/login"
-              className="btn-primary  hover-up-2 ml-auto  text-center h-10 flex justify-center items-center"
+            <p className="text-lg text-blue-400 font-semibold mt-2">
+              {assets.length}
+            </p>
+            <button
+              onClick={() =>
+                document
+                  .getElementById("here")
+                  .scrollIntoView({ behavior: "smooth", block: "start" })
+              }
+              className="btn-primary cursor-pointer  hover-up-2 ml-auto  text-center h-10 flex justify-center items-center"
             >
               View
-            </Link>
+            </button>
           </div>
         </div>
         <div className="bg-white rounded-lg p-6  items-center  shadow-sm">
@@ -87,13 +121,19 @@ export default function DashboardHome() {
           </div>
 
           <div className="flex gap-3">
-            <p className="text-lg text-blue-400 font-semibold mt-2">2</p>
-            <Link
-              href="/login"
-              className="btn-primary  hover-up-2 ml-auto  text-center h-10 flex justify-center items-center"
+            <p className="text-lg text-blue-400 font-semibold mt-2">
+              {beneficiaries.length}
+            </p>
+            <button
+              onClick={() =>
+                document
+                  .getElementById("beneficiaries")
+                  .scrollIntoView({ behavior: "smooth", block: "start" })
+              }
+              className="btn-primary cursor-pointer  hover-up-2 ml-auto  text-center h-10 flex justify-center items-center"
             >
               View
-            </Link>
+            </button>
           </div>
         </div>
         <div className="bg-white rounded-lg p-6  items-center  shadow-sm">
@@ -130,29 +170,61 @@ export default function DashboardHome() {
           </p>
         </div>
       </div>
-      <div className="bg-white rounded-lg p-6 flex flex-col shadow-sm mt-16">
-        <div className="overflow-x-auto">
+      <div
+        id="here"
+        className="bg-white rounded-lg p-6 flex flex-col shadow-sm mt-16"
+      >
+        <p className="text-center text-gray-500 text-xl font-bold">Assets</p>
+        <div className="overflow-x-auto mt-6">
           <table className="min-w-full text-sm">
             <thead className="bg-slate-100 text-left text-xs font-semibold uppercase tracking-wider text-slate-600">
               <tr>
                 <th className="py-3 px-4">Property</th>
                 <th className="py-3 px-4">Assigned&nbsp;to</th>
-                <th className="py-3 px-4 text-center">Actions</th>
+                <th className="py-3 px-4 text-center">Category</th>
               </tr>
             </thead>
 
             <tbody className="divide-y divide-slate-200">
-              {rows.map(({ property, assigned }, idx) => (
-                <tr key={idx} className="hover:bg-slate-50">
-                  <td className="py-3 px-4">{property}</td>
-                  <td className="py-3 px-4">{assigned}</td>
+              {assets.map((asset) => (
+                <tr key={asset.id} className="hover:bg-slate-50">
+                  <td className="py-3 px-4">{asset.title}</td>
+                  <td className="py-3 px-4">{asset.description}</td>
                   <td className="py-3 px-4 text-center">
-                    <button
-                      className="text-red-500 hover:text-red-600 cursor-pointer"
-                      title="Delete"
-                    >
-                      <HiOutlineTrash className="w-5 h-5" />
-                    </button>
+                    {asset.category.name}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div
+        id="beneficiaries"
+        className="bg-white rounded-lg p-6 flex flex-col shadow-sm mt-16"
+      >
+        <p className="text-center text-gray-500 text-xl font-bold">
+          Beneficiaries
+        </p>
+        <div className="overflow-x-auto mt-6">
+          <table className="min-w-full text-sm">
+            <thead className="bg-slate-100 text-left text-xs font-semibold uppercase tracking-wider text-slate-600">
+              <tr>
+                <th className="py-3 px-4">Full Name</th>
+                <th className="py-3 px-4">Location</th>
+                <th className="py-3 px-4 text-center">Contact</th>
+              </tr>
+            </thead>
+
+            <tbody className="divide-y divide-slate-200">
+              {beneficiaries.map((beneficiary) => (
+                <tr key={beneficiary.id} className="hover:bg-slate-50">
+                  <td className="py-3 px-4">
+                    {beneficiary.last_name + " " + beneficiary.first_name}
+                  </td>
+                  <td className="py-3 px-4">{beneficiary.city}</td>
+                  <td className="py-3 px-4 text-center">
+                    {beneficiary.mobile}
                   </td>
                 </tr>
               ))}
