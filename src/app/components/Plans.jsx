@@ -1,10 +1,10 @@
 import Link from "next/link";
-import useHasMounted from "./hooks/useHasMounted";
-export default function Plan() {
-  const hasMounted = useHasMounted();
+import React, { forwardRef } from "react";
+
+const Plan = forwardRef(function Plan(props, ref) {
   return (
     <div
-      // {...(hasMounted && { "data-aos": "fade-up" })}
+      ref={ref}
       className="w-[100%] py-20 lg:px-[2.5rem] px-[1rem] mt-56 lg:mt-10 "
     >
       <div className="w-full flex justify-center items-center ">
@@ -65,4 +65,5 @@ export default function Plan() {
       </div>
     </div>
   );
-}
+});
+export default Plan;

@@ -9,6 +9,7 @@ import Image from "next/image";
 
 export default function Header({
   handleContactClick,
+  handleCompanyClick,
   handleServicesClick,
   handleSecureClick,
 }) {
@@ -34,6 +35,13 @@ export default function Header({
       router.push("/?scroll=services");
     } else {
       handleServicesClick();
+    }
+  };
+  const scrollToCompany = () => {
+    if (pathname !== "/") {
+      router.push("/?scroll=services");
+    } else {
+      handleCompanyClick();
     }
   };
 
@@ -93,13 +101,11 @@ export default function Header({
             >
               Services
             </li>
-            <li>
-              <Link
-                href="/services"
-                className="text-sm font-semibold text-blueGray-600 hover:text-blueGray-500 tracking-wide"
-              >
-                Company
-              </Link>
+            <li
+              onClick={scrollToCompany}
+              className="text-sm cursor-pointer font-semibold text-blueGray-600 hover:text-blueGray-500 tracking-wide"
+            >
+              Company
             </li>
             <li
               onClick={scrollToContact}
@@ -146,9 +152,16 @@ export default function Header({
               <Link href="/">
                 <li onClick={navHandler}>Home</li>
               </Link>
-              <Link href="/about">
-                <li onClick={navHandler}>About Us</li>
-              </Link>
+
+              <li
+                onClick={() => {
+                  setMenuOpen(false);
+                  scrollToSecure();
+                }}
+              >
+                About Us
+              </li>
+
               <li
                 onClick={() => {
                   setMenuOpen(false);
@@ -157,9 +170,16 @@ export default function Header({
               >
                 Services
               </li>
-              <Link href="/services">
-                <li onClick={navHandler}>Company</li>
-              </Link>
+
+              <li
+                onClick={() => {
+                  setMenuOpen(false);
+                  scrollToCompany();
+                }}
+              >
+                Company
+              </li>
+
               <li
                 onClick={() => {
                   setMenuOpen(false);

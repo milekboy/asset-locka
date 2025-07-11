@@ -13,7 +13,7 @@ import Plan from "./components/Plans";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
-function ScrollHandler({ featuresRef, contactRef, secureRef }) {
+function ScrollHandler({ featuresRef, contactRef, secureRef, companyRef }) {
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -24,8 +24,10 @@ function ScrollHandler({ featuresRef, contactRef, secureRef }) {
       featuresRef.current?.scrollIntoView({ behavior: "smooth" });
     } else if (scrollTarget === "secure") {
       secureRef.current?.scrollIntoView({ behavior: "smooth" });
+    } else if (scrollTarget === "company") {
+      companyRef.current?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [searchParams, contactRef, featuresRef, secureRef]);
+  }, [searchParams, contactRef, featuresRef, secureRef, companyRef]);
 
   return null;
 }
@@ -34,6 +36,7 @@ export default function Home() {
   const contactRef = useRef(null);
   const featuresRef = useRef(null);
   const secureRef = useRef(null);
+  const companyRef = useRef(null);
 
   return (
     <div>
@@ -49,19 +52,23 @@ export default function Home() {
         handleSecureClick={() =>
           secureRef.current?.scrollIntoView({ behavior: "smooth" })
         }
+        handleCompanyClick={() =>
+          companyRef.current?.scrollIntoView({ behavior: "smooth" })
+        }
       />
       <Suspense fallback={null}>
         <ScrollHandler
           contactRef={contactRef}
           featuresRef={featuresRef}
           secureRef={secureRef}
+          companyRef={companyRef}
         />
       </Suspense>
       <Hero />
       <DontSuffer />
       <Features ref={featuresRef} />
       <Secure ref={secureRef} />
-      <Plan />
+      <Plan ref={companyRef} />
       <Contact ref={contactRef} />
       <Footer />
     </div>
