@@ -18,7 +18,7 @@ const links = [
   { href: "/add-beneficiary", label: "Add Beneficiary", icon: HiUserAdd },
   { href: "/add-asset", label: "Add Assets", icon: HiOutlinePlusCircle },
   {
-    href: "/dashboard/assets/find",
+    href: "/search",
     label: "Find Assets",
     icon: HiOutlineSearch,
   },
