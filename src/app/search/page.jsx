@@ -83,6 +83,7 @@ export default function SearchPage() {
   // configure Paystack only if paymentData is available
   const paystackProps = paymentData && {
     email: user.email,
+    reference: paymentData.payment.reference,
     amount: paymentData.payment.amount * 100, // adjust if the shape differs
     metadata: { name: accountName, phone: phone1 },
     publicKey: PAYSTACK_PK,
