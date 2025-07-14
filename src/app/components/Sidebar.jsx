@@ -3,23 +3,25 @@ import { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  HiX,
-  HiUserAdd,
-  HiOutlinePlusCircle,
-  HiOutlineSearch,
-} from "react-icons/hi";
+import { HiX, HiOutlineSearch } from "react-icons/hi";
+import { FaBuilding } from "react-icons/fa";
+import { FaArrowsDownToPeople } from "react-icons/fa6";
+
 import { MdOutlineVerifiedUser } from "react-icons/md";
 import { FaHome } from "react-icons/fa";
 import { FaMedal } from "react-icons/fa";
 
 const links = [
   { href: "/dashboard", label: "Home", icon: FaHome },
-  { href: "/add-beneficiary", label: "Add Beneficiary", icon: HiUserAdd },
-  { href: "/add-asset", label: "Add Assets", icon: HiOutlinePlusCircle },
+  {
+    href: "/my-beneficiaries",
+    label: "My Beneficiaries",
+    icon: FaArrowsDownToPeople,
+  },
+  { href: "/my-assets", label: "My Assets", icon: FaBuilding },
   {
     href: "/search",
-    label: "Find Assets",
+    label: "Searched Assets",
     icon: HiOutlineSearch,
   },
   {

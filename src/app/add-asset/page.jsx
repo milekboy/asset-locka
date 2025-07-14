@@ -1,11 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import DashboardLayout from "../components/DashboardLayout";
 import NetworkInstance from "../components/NetworkInstance";
 import Toast from "../components/Toast";
 import Spinner from "../components/Spinner";
 
 export default function AddAsset() {
+  const router = useRouter();
   const networkInstance = NetworkInstance();
 
   // form state
@@ -72,7 +74,7 @@ export default function AddAsset() {
       });
 
       setToast({ message: data.message || "Asset added!", type: "success" });
-
+      router.push("/my-assets");
       setTitle("");
       setDescription("");
       setValue("");

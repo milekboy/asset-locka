@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { FaMars, FaVenus } from "react-icons/fa6";
 import DashboardLayout from "../components/DashboardLayout";
 import NetworkInstance from "../components/NetworkInstance";
@@ -7,6 +8,7 @@ import Toast from "../components/Toast";
 import Spinner from "../components/Spinner";
 
 export default function AddBeneficiary() {
+  const router = useRouter();
   const networkInstance = NetworkInstance();
 
   // form state
@@ -52,7 +54,7 @@ export default function AddBeneficiary() {
       });
 
       setToast({ message: data.message, type: "success" });
-
+      router.push("/my-beneficiaries");
       // ← clear *all* the inputs
       setFirstName("");
       setLastName("");

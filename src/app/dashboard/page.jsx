@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../components/AuthContext";
 import DashboardLayout from "../components/DashboardLayout";
-import { HiOutlineTrash } from "react-icons/hi2";
 import NetworkInstance from "../components/NetworkInstance";
 import { FcDocument } from "react-icons/fc";
 import { FaSearchLocation } from "react-icons/fa";
@@ -102,16 +101,12 @@ export default function DashboardHome() {
             <p className="text-lg text-blue-400 font-semibold mt-2">
               {assets.length}
             </p>
-            <button
-              onClick={() =>
-                document
-                  .getElementById("here")
-                  .scrollIntoView({ behavior: "smooth", block: "start" })
-              }
-              className="btn-primary cursor-pointer  hover-up-2 ml-auto  text-center h-10 flex justify-center items-center"
+            <Link
+              className="btn-primary   hover-up-2 ml-auto  text-center h-10 flex justify-center items-center"
+              href="/my-assets"
             >
-              View
-            </button>
+              <button>View</button>
+            </Link>
           </div>
         </div>
         <div className="bg-white rounded-lg p-6  items-center  shadow-sm">
@@ -124,16 +119,13 @@ export default function DashboardHome() {
             <p className="text-lg text-blue-400 font-semibold mt-2">
               {beneficiaries.length}
             </p>
-            <button
-              onClick={() =>
-                document
-                  .getElementById("beneficiaries")
-                  .scrollIntoView({ behavior: "smooth", block: "start" })
-              }
-              className="btn-primary cursor-pointer  hover-up-2 ml-auto  text-center h-10 flex justify-center items-center"
+
+            <Link
+              className="btn-primary   hover-up-2 ml-auto  text-center h-10 flex justify-center items-center"
+              href="/my-beneficiaries"
             >
-              View
-            </button>
+              <button>View</button>
+            </Link>
           </div>
         </div>
         <div className="bg-white rounded-lg p-6  items-center  shadow-sm">
@@ -168,68 +160,6 @@ export default function DashboardHome() {
               Click here to resend verification email
             </span>
           </p>
-        </div>
-      </div>
-      <div
-        id="here"
-        className="bg-white rounded-lg p-6 flex flex-col shadow-sm mt-16"
-      >
-        <p className="text-center text-gray-500 text-xl font-bold">Assets</p>
-        <div className="overflow-x-auto mt-6">
-          <table className="min-w-full text-sm">
-            <thead className="bg-slate-100 text-left text-xs font-semibold uppercase tracking-wider text-slate-600">
-              <tr>
-                <th className="py-3 px-4">Property</th>
-                <th className="py-3 px-4">Assigned&nbsp;to</th>
-                <th className="py-3 px-4 text-center">Category</th>
-              </tr>
-            </thead>
-
-            <tbody className="divide-y divide-slate-200">
-              {assets.map((asset) => (
-                <tr key={asset.id} className="hover:bg-slate-50">
-                  <td className="py-3 px-4">{asset.title}</td>
-                  <td className="py-3 px-4">{asset.description}</td>
-                  <td className="py-3 px-4 text-center">
-                    {asset.category.name}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div
-        id="beneficiaries"
-        className="bg-white rounded-lg p-6 flex flex-col shadow-sm mt-16"
-      >
-        <p className="text-center text-gray-500 text-xl font-bold">
-          Beneficiaries
-        </p>
-        <div className="overflow-x-auto mt-6">
-          <table className="min-w-full text-sm">
-            <thead className="bg-slate-100 text-left text-xs font-semibold uppercase tracking-wider text-slate-600">
-              <tr>
-                <th className="py-3 px-4">Full Name</th>
-                <th className="py-3 px-4">Location</th>
-                <th className="py-3 px-4 text-center">Contact</th>
-              </tr>
-            </thead>
-
-            <tbody className="divide-y divide-slate-200">
-              {beneficiaries.map((beneficiary) => (
-                <tr key={beneficiary.id} className="hover:bg-slate-50">
-                  <td className="py-3 px-4">
-                    {beneficiary.last_name + " " + beneficiary.first_name}
-                  </td>
-                  <td className="py-3 px-4">{beneficiary.city}</td>
-                  <td className="py-3 px-4 text-center">
-                    {beneficiary.mobile}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
       </div>
     </DashboardLayout>
