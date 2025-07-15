@@ -20,8 +20,8 @@ const links = [
   },
   { href: "/my-assets", label: "My Assets", icon: FaBuilding },
   {
-    href: "/search",
-    label: "Searched Assets",
+    href: "/my-searches",
+    label: "My Searches",
     icon: HiOutlineSearch,
   },
   {

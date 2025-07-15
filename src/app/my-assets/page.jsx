@@ -64,7 +64,7 @@ export default function MyAssetsPage() {
       )}
       {loading && <Spinner />}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 space-y-6">
+      <div className="max-w-7xl mx-auto  sm:px-6 lg:px-8 mt-8 space-y-6">
         {/* Header + Add Asset Button */}
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold text-gray-800">My Assets</h1>
@@ -78,7 +78,7 @@ export default function MyAssetsPage() {
         </div>
 
         {/* Assets Table */}
-        <div className="bg-white shadow rounded-lg overflow-x-auto">
+        <div className="bg-white shadow rounded-lg lg:overflow-x-auto overflow-x-scroll w-screen lg:w-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>

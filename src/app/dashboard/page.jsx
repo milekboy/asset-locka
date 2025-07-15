@@ -15,11 +15,13 @@ export default function DashboardHome() {
   const [toast, setToast] = useState(null);
   const [loading, setLoading] = useState(false);
   const [assets, setAssets] = useState([]);
+  const [searches, setSearches] = useState([]);
   const [beneficiaries, setBeneficiaries] = useState([]);
   const networkInstance = NetworkInstance();
   useEffect(() => {
     getAssets();
     getBeneficiaries();
+    getSearches();
   }, []);
   const getAssets = async () => {
     const token = localStorage.getItem("token");
@@ -30,9 +32,21 @@ export default function DashboardHome() {
         },
       });
       setAssets(res.data.data.data);
-      console.log(res.data.data.data);
     } catch (error) {
       console.error("Error fetching orders:", error);
+    }
+  };
+  const getSearches = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await networkInstance.get("/api/search", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setSearches(res.data.data);
+    } catch (error) {
+      console.error("Error fetching searches:", error);
     }
   };
   const getBeneficiaries = async () => {
@@ -44,7 +58,6 @@ export default function DashboardHome() {
         },
       });
       setBeneficiaries(res.data.data);
-      console.log(res.data.data);
     } catch (error) {
       console.error("Error fetching Beneficiaries:", error);
     }
@@ -135,9 +148,11 @@ export default function DashboardHome() {
           </div>
 
           <div className="flex gap-3">
-            <p className="text-lg text-blue-400 font-semibold mt-2">1</p>
+            <p className="text-lg text-blue-400 font-semibold mt-2">
+              {searches.length}
+            </p>
             <Link
-              href="/login"
+              href="/my-searches"
               className="btn-primary  hover-up-2 ml-auto  text-center h-10 flex justify-center items-center"
             >
               View

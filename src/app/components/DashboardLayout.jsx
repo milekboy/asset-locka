@@ -1,10 +1,8 @@
 "use client";
 import { useState } from "react";
-import HeadContact from "./HeadContact";
 import Sidebar from "./Sidebar";
 import DashboardHeader from "./DashboardHeader";
 import Footer from "./Footer";
-import { AuthProvider } from "./AuthContext";
 
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -24,7 +22,9 @@ export default function DashboardLayout({ children }) {
         <div className="flex-1 md:ml-64 flex flex-col">
           <DashboardHeader onBurgerClick={() => setSidebarOpen(true)} />
 
-          <main className="flex-1 pt-16 lg:p-6 md:p-24 ">{children}</main>
+          <main className="flex-1 pt-16 lg:p-6 md:p-24 mb-40 mt-10">
+            {children}
+          </main>
 
           <Footer />
         </div>
