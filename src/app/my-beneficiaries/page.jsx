@@ -65,7 +65,7 @@ export default function MyBeneficiariesPage() {
 
       <div className="max-w-7xl mx-auto  sm:px-6 lg:px-8 mt-8 space-y-6">
         {/* Header + Add Beneficiary */}
-        <div className="flex items-center justify-between">
+        <div className="lg:flex  space-y-4 items-center justify-between px-5">
           <h1 className="text-2xl font-semibold text-gray-800">
             My Beneficiaries
           </h1>
