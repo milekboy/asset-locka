@@ -35,24 +35,6 @@ export default function MyAssetsPage() {
     }
   };
 
-  const handleDelete = async (id) => {
-    if (!confirm("Are you sure you want to delete this asset?")) return;
-    setLoading(true);
-    const token = localStorage.getItem("token");
-    try {
-      await networkInstance.delete(`/api/asset/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setToast({ message: "Asset deleted.", type: "success" });
-      fetchAssets();
-    } catch (err) {
-      console.error(err);
-      setToast({ message: "Delete failed.", type: "error" });
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <DashboardLayout>
       {toast && (
@@ -91,9 +73,6 @@ export default function MyAssetsPage() {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Category
                 </th>
-                <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -105,15 +84,6 @@ export default function MyAssetsPage() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     {asset.category?.name}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-center">
-                    <button
-                      onClick={() => handleDelete(asset.id)}
-                      className="text-red-500 hover:text-red-600"
-                      title="Delete"
-                    >
-                      <HiOutlineTrash className="inline-block w-5 h-5" />
-                    </button>
                   </td>
                 </tr>
               ))}

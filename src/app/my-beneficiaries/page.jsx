@@ -34,24 +34,6 @@ export default function MyBeneficiariesPage() {
     }
   };
 
-  const handleDelete = async (id) => {
-    if (!confirm("Are you sure you want to delete this beneficiary?")) return;
-    setLoading(true);
-    const token = localStorage.getItem("token");
-    try {
-      await networkInstance.delete(`/api/beneficiary/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setToast({ message: "Beneficiary deleted.", type: "success" });
-      fetchBeneficiaries();
-    } catch (err) {
-      console.error(err);
-      setToast({ message: "Delete failed.", type: "error" });
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <DashboardLayout>
       {toast && (
@@ -92,9 +74,6 @@ export default function MyBeneficiariesPage() {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Contact
                 </th>
-                <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -105,15 +84,6 @@ export default function MyBeneficiariesPage() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">{b.city}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{b.mobile}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-center">
-                    <button
-                      onClick={() => handleDelete(b.id)}
-                      className="text-red-500 hover:text-red-600"
-                      title="Delete"
-                    >
-                      <HiOutlineTrash className="w-5 h-5 inline-block" />
-                    </button>
-                  </td>
                 </tr>
               ))}
 
