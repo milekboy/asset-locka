@@ -1,14 +1,16 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import DashboardLayout from "../components/DashboardLayout";
-import NetworkInstance from "../components/NetworkInstance";
-import Toast from "../components/Toast";
-import Spinner from "../components/Spinner";
 
-export default function AddAsset() {
+import { useState, useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
+import DashboardLayout from "@/app/components/DashboardLayout";
+import NetworkInstance from "@/app/components/NetworkInstance";
+import Toast from "@/app/components/Toast";
+import Spinner from "@/app/components/Spinner";
+
+export default function EditAssetPage() {
+  const { id } = useParams(); // Next 13 App Router hook
   const router = useRouter();
-  const networkInstance = NetworkInstance();
+  const api = NetworkInstance();
 
   // form state
   const [title, setTitle] = useState("");
@@ -19,38 +21,60 @@ export default function AddAsset() {
   const [subcategoryId, setSubcategoryId] = useState("");
   const [status, setStatus] = useState("active");
 
-  // fetched data
+  // lookup data
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
 
-  // UX state
+  // UX
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(null);
 
-  // 1. load all categories on mount
+  // 1) load asset + categories on mount
   useEffect(() => {
     const token = localStorage.getItem("token");
-    networkInstance
+
+    // fetch categories once
+    api
       .get("/api/categories", {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((res) => {
-        // if your endpoint wraps data under `data.data`
-        setCategories(res.data.data ?? res.data);
+      .then((res) => setCategories(res.data.data ?? res.data))
+      .catch(console.error);
+
+    // fetch the asset to edit
+    setLoading(true);
+    api
+      .get(`/api/asset/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
       })
-      .catch((err) => console.error(err));
+      .then(({ data }) => {
+        const a = data.data ?? data;
+        setTitle(a.title);
+        setDescription(a.description);
+        setAccountId(a.account_id);
+        setCompany(a.company);
+        setCategoryId(a.category_id);
+        setSubcategories(a.category.subcategories || []);
+        setSubcategoryId(a.subcategory_id);
+        setStatus(a.status);
+      })
+      .catch((err) => {
+        console.error(err);
+        setToast({ message: "Failed to load asset", type: "error" });
+      })
+      .finally(() => setLoading(false));
   }, []);
 
-  // 2. when category changes, pick its nested subcategories
+  // when user picks a new category, update subcategories
   const handleCategoryChange = (e) => {
-    const id = Number(e.target.value);
-    setCategoryId(id);
+    const cid = Number(e.target.value);
+    setCategoryId(cid);
     setSubcategoryId("");
-    const cat = categories.find((c) => c.id === id);
+    const cat = categories.find((c) => c.id === cid);
     setSubcategories(cat?.subcategories || []);
   };
 
-  // 3. submit form
+  // submit updated asset
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -66,27 +90,16 @@ export default function AddAsset() {
       status,
     };
 
-    console.log("Submitting asset payload:", payload);
-
     try {
-      const { data } = await networkInstance.post("/api/asset", payload, {
+      await api.put(`/api/asset/${id}`, payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
-      setToast({ message: data.message || "Asset added!", type: "success" });
+      setToast({ message: "Asset updated!", type: "success" });
       router.push("/my-assets");
-      setTitle("");
-      setDescription("");
-      setAccountId("");
-      setCompany("");
-      setCategoryId("");
-      setSubcategoryId("");
-      setStatus("active");
-      setSubcategories([]);
     } catch (err) {
       console.error(err);
       setToast({
-        message: err.response?.data?.message || "Something went wrong.",
+        message: err.response?.data?.message || "Update failed.",
         type: "error",
       });
     } finally {
@@ -105,10 +118,10 @@ export default function AddAsset() {
       )}
       {loading && <Spinner />}
 
-      <div className="max-w-2xl mx-auto mt-8 bg-white rounded-lg px-4 lg:px-0 shadow-lg overflow-hidden">
-        {/* header bar */}
-        <div className="bg-blue-500 rounded-t-md px-6 py-4">
-          <h2 className="text-white text-xl font-semibold">Add Asset</h2>
+      <div className="max-w-2xl mx-auto mt-8 bg-white rounded-lg shadow-lg">
+        {/* Header */}
+        <div className="bg-blue-500 px-6 py-4 rounded-t-lg">
+          <h2 className="text-white text-xl font-semibold">Edit Asset</h2>
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
@@ -119,7 +132,7 @@ export default function AddAsset() {
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
+              className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-200"
               required
             />
           </div>
@@ -130,12 +143,12 @@ export default function AddAsset() {
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 h-24 focus:outline-none focus:ring-2 focus:ring-blue-200"
+              className="w-full border border-gray-300 rounded px-3 py-2 h-24 focus:ring-2 focus:ring-blue-200"
               required
             />
           </div>
 
-          {/* Value & Location */}
+          {/* Company & Account ID */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block mb-1 font-medium">Company</label>
@@ -143,7 +156,7 @@ export default function AddAsset() {
                 type="text"
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-200"
                 required
               />
             </div>
@@ -153,7 +166,7 @@ export default function AddAsset() {
                 type="number"
                 value={accountId}
                 onChange={(e) => setAccountId(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-200"
                 required
               />
             </div>
@@ -164,9 +177,9 @@ export default function AddAsset() {
             <div>
               <label className="block mb-1 font-medium">Category</label>
               <select
-                value={categoryId || ""}
+                value={categoryId}
                 onChange={handleCategoryChange}
-                className="w-full border cursor-pointer border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-200"
                 required
               >
                 <option value="" disabled>
@@ -182,14 +195,15 @@ export default function AddAsset() {
             <div>
               <label className="block mb-1 font-medium">Subcategory</label>
               <select
-                value={subcategoryId || ""}
+                value={subcategoryId}
                 onChange={(e) => setSubcategoryId(Number(e.target.value))}
-                disabled={!categoryId}
-                className="w-full border  cursor-pointer border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-200"
                 required
               >
                 <option value="" disabled>
-                  {categoryId ? "Select subcategory" : "Choose category first"}
+                  {subcategories.length
+                    ? "Select subcategory"
+                    : "Choose category first"}
                 </option>
                 {subcategories.map((s) => (
                   <option key={s.id} value={s.id}>
@@ -206,7 +220,7 @@ export default function AddAsset() {
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
+              className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-200"
             >
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
@@ -216,9 +230,10 @@ export default function AddAsset() {
           {/* Submit */}
           <button
             type="submit"
-            className="w-full cursor-pointer bg-blue-400 hover:bg-blue-600 text-white font-semibold py-3 rounded transition"
+            className="w-full cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded transition"
+            disabled={loading}
           >
-            Save Asset
+            Save Changes
           </button>
         </form>
       </div>

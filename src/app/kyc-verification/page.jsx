@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useAuth } from "../components/AuthContext";
 import { useRouter } from "next/navigation";
 import { HiShieldCheck } from "react-icons/hi";
 import DashboardLayout from "../components/DashboardLayout";
@@ -8,10 +9,10 @@ import Toast from "../components/Toast";
 import Spinner from "../components/Spinner";
 
 export default function DashboardHome() {
+  const { user } = useAuth();
   const router = useRouter();
   const [identityNumber, setIdentityNumber] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+
   const [dob, setDob] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
@@ -19,6 +20,15 @@ export default function DashboardHome() {
   const [toast, setToast] = useState(null);
 
   const networkInstance = NetworkInstance();
+  if (!user) {
+    return (
+      <DashboardLayout>
+        <div className="flex justify-center items-center h-64">
+          <Spinner />
+        </div>
+      </DashboardLayout>
+    );
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,8 +41,8 @@ export default function DashboardHome() {
         {
           identity_number: identityNumber,
           identity_type: "bvn",
-          first_name: firstName,
-          last_name: lastName,
+          first_name: user.first_name,
+          last_name: user.last_name,
           dob,
           phone_number: phoneNumber,
         },
@@ -114,25 +124,23 @@ export default function DashboardHome() {
               <label className="block mb-1 font-medium text-gray-700">
                 First Name
               </label>
-              <input
-                type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
+              <div
+                className="w-full border bg-gray-100 border-gray-300 rounded px-3 py-2  "
                 required
-              />
+              >
+                {user.first_name}
+              </div>
             </div>
             <div>
               <label className="block mb-1 font-medium text-gray-700">
                 Last Name
               </label>
-              <input
-                type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
+              <div
+                className="w-full border bg-gray-100 border-gray-300 rounded px-3 py-2  "
                 required
-              />
+              >
+                {user.last_name}
+              </div>
             </div>
           </div>
 

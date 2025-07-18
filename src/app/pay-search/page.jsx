@@ -10,6 +10,9 @@ import {
   HiPhone,
   HiOutlineCash,
   HiOutlineCreditCard,
+  HiOutlineMail,
+  HiOutlineSearch,
+  HiHashtag,
 } from "react-icons/hi";
 
 import { useAuth } from "../components/AuthContext";
@@ -18,7 +21,7 @@ import Spinner from "../components/Spinner";
 import Toast from "../components/Toast";
 import NetworkInstance from "../components/NetworkInstance";
 
-// client-only Paystack button
+// client‐only Paystack button
 const PaystackButton = dynamic(
   () => import("react-paystack").then((mod) => mod.PaystackButton),
   { ssr: false }
@@ -43,17 +46,23 @@ function ResultContent() {
   const [toast, setToast] = useState(null);
   const [confirming, setConfirming] = useState(false);
 
-  // pulled from the URL
-  const accountName = params.get("accountName");
-  const identityNumber = params.get("identityNumber");
+  // pulled from URL
+  const firstName = params.get("firstName");
+  const middleName = params.get("middleName");
+  const maidenName = params.get("maidenName");
+  const lastName = params.get("lastName");
+  const email = params.get("email");
   const phone1 = params.get("phone1");
   const phone2 = params.get("phone2");
+  const bvn = params.get("bvn");
+  const nin = params.get("nin");
+  const searchType = params.get("searchType");
+  const searchId = params.get("searchId");
   const reference = params.get("reference");
   const amount = params.get("amount");
 
   const PUBLIC_KEY = "pk_test_8f50f7ec5175d60bdc0fd2645df800bd3dc37b49";
 
-  // when Paystack reports success, confirm with your backend first
   const handleConfirm = async ({ reference: ref }) => {
     setConfirming(true);
     try {
@@ -75,7 +84,6 @@ function ResultContent() {
 
   return (
     <div className="max-w-md mx-auto mt-8">
-      {/* toast messages */}
       {toast && (
         <Toast
           message={toast.message}
@@ -96,21 +104,41 @@ function ResultContent() {
           <div className="flex items-center gap-2 text-gray-700">
             <HiOutlineUser className="text-blue-500" />
             <span>
-              <strong>Owner Name:</strong> {accountName}
+              <strong>Full Name:</strong>{" "}
+              {`${firstName} ${middleName || ""} ${
+                maidenName || ""
+              } ${lastName}`}
             </span>
           </div>
+
+          <div className="flex items-center gap-2 text-gray-700">
+            <HiOutlineMail className="text-blue-500" />
+            <span>
+              <strong>Email:</strong> {email}
+            </span>
+          </div>
+
           <div className="flex items-center gap-2 text-gray-700">
             <HiIdentification className="text-blue-500" />
             <span>
-              <strong>Identity Number:</strong> {identityNumber}
+              <strong>BVN:</strong> {bvn}
             </span>
           </div>
+
+          <div className="flex items-center gap-2 text-gray-700">
+            <HiIdentification className="text-blue-500" />
+            <span>
+              <strong>NIN:</strong> {nin}
+            </span>
+          </div>
+
           <div className="flex items-center gap-2 text-gray-700">
             <HiPhone className="text-blue-500" />
             <span>
               <strong>Primary Phone:</strong> {phone1}
             </span>
           </div>
+
           {phone2 && (
             <div className="flex items-center gap-2 text-gray-700">
               <HiPhone className="text-blue-500" />
@@ -119,6 +147,17 @@ function ResultContent() {
               </span>
             </div>
           )}
+
+          <div className="flex items-center gap-2 text-gray-700">
+            <HiOutlineSearch className="text-blue-500" />
+            <span>
+              <strong>Search Type:</strong>{" "}
+              {searchType
+                .replace("_", " ")
+                .replace(/\b\w/g, (c) => c.toUpperCase())}
+            </span>
+          </div>
+
           <div className="flex items-center gap-2 text-gray-700">
             <HiOutlineCash className="text-blue-500" />
             <span>
@@ -133,9 +172,9 @@ function ResultContent() {
               amount={Number(amount) * 100}
               reference={reference}
               publicKey={PUBLIC_KEY}
-              metadata={{ name: accountName, phone: phone1 }}
+              metadata={{ name: `${firstName} ${lastName}`, phone: phone1 }}
               text="Pay to View Results"
-              className="w-full bg-blue-950  cursor-pointer text-white font-semibold py-2 rounded transition disabled:opacity-50"
+              className="w-full cursor-pointer bg-blue-950  text-white font-semibold py-2 rounded transition disabled:opacity-50"
               onSuccess={handleConfirm}
               onClose={() => alert("Payment cancelled.")}
               disabled={confirming}

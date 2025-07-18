@@ -67,7 +67,10 @@ export default function MySearchesPage() {
                   Full Name
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Id number
+                  NIN Number
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Phone Number
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Status
@@ -78,11 +81,10 @@ export default function MySearchesPage() {
               {searches.map((b) => (
                 <tr key={b.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {b.account_name}
+                    {`${b.last_name} ${b.first_name} ${b.middle_name}`}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {b.identity_number}
-                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">{b.nin}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{b.phone_1}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{b.status}</td>
                 </tr>
               ))}

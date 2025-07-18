@@ -13,6 +13,7 @@ export default function AddBeneficiary() {
 
   // form state
   const [firstName, setFirstName] = useState("");
+  const [otherName, setOtherName] = useState("");
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState("");
   const [address, setAddress] = useState("");
@@ -23,6 +24,7 @@ export default function AddBeneficiary() {
   const [telephone, setTelephone] = useState("");
   const [mobile, setMobile] = useState("");
   const [mobile2, setMobile2] = useState("");
+  const [relationship, setRelationship] = useState("");
 
   // UX state
   const [loading, setLoading] = useState(false);
@@ -35,15 +37,16 @@ export default function AddBeneficiary() {
     const payload = {
       first_name: firstName,
       last_name: lastName,
+      other_name: otherName,
       gender,
       address,
       city,
       state,
       country,
-      telephone,
       mobile,
       mobile2,
       zipcode,
+      relationship,
     };
 
     console.log("Submitting beneficiary payload:", payload);
@@ -57,6 +60,7 @@ export default function AddBeneficiary() {
       router.push("/my-beneficiaries");
       // ← clear *all* the inputs
       setFirstName("");
+      setOtherName("");
       setLastName("");
       setGender("");
       setAddress("");
@@ -103,7 +107,7 @@ export default function AddBeneficiary() {
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           {/* Name */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid  grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label className="block mb-1 font-medium text-gray-700">
                 First Name
@@ -125,6 +129,19 @@ export default function AddBeneficiary() {
                 type="text"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
+                className="w-full border border-gray-300 rounded px-3 py-2
+                           focus:outline-none focus:ring-2 focus:ring-blue-200"
+                required
+              />
+            </div>
+            <div>
+              <label className="block mb-1 font-medium text-gray-700">
+                Other Name
+              </label>
+              <input
+                type="text"
+                value={otherName}
+                onChange={(e) => setOtherName(e.target.value)}
                 className="w-full border border-gray-300 rounded px-3 py-2
                            focus:outline-none focus:ring-2 focus:ring-blue-200"
                 required
@@ -239,20 +256,6 @@ export default function AddBeneficiary() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block mb-1 font-medium text-gray-700">
-                Telephone
-              </label>
-              <input
-                type="tel"
-                value={telephone}
-                onChange={(e) => setTelephone(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2
-                           focus:outline-none focus:ring-2 focus:ring-blue-200"
-                placeholder="080-1234-5678"
-                required
-              />
-            </div>
-            <div>
-              <label className="block mb-1 font-medium text-gray-700">
                 Mobile
               </label>
               <input
@@ -261,24 +264,37 @@ export default function AddBeneficiary() {
                 onChange={(e) => setMobile(e.target.value)}
                 className="w-full border border-gray-300 rounded px-3 py-2
                            focus:outline-none focus:ring-2 focus:ring-blue-200"
-                placeholder="080-8765-4321"
+                required
+              />
+            </div>
+            <div>
+              <label className="block mb-1 font-medium text-gray-700">
+                Alternate Mobile
+              </label>
+              <input
+                type="tel"
+                value={mobile2}
+                onChange={(e) => setMobile2(e.target.value)}
+                className="w-full border border-gray-300 rounded px-3 py-2
+                         focus:outline-none focus:ring-2 focus:ring-blue-200"
                 required
               />
             </div>
           </div>
 
           {/* Alternate Mobile */}
+
           <div>
             <label className="block mb-1 font-medium text-gray-700">
-              Alternate Mobile
+              Relationship
             </label>
             <input
               type="tel"
-              value={mobile2}
-              onChange={(e) => setMobile2(e.target.value)}
+              value={relationship}
+              onChange={(e) => setRelationship(e.target.value)}
               className="w-full border border-gray-300 rounded px-3 py-2
                          focus:outline-none focus:ring-2 focus:ring-blue-200"
-              placeholder="Optional"
+              required
             />
           </div>
 
