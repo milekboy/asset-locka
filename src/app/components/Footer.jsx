@@ -1,64 +1,189 @@
+// components/Footer.jsx
 "use client";
-import Link from "next/link";
-import useHasMounted from "./hooks/useHasMounted";
+
 import Image from "next/image";
-import { FaFacebookF } from "react-icons/fa";
+import Link from "next/link";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaTwitter,
+  FaLinkedinIn,
+} from "react-icons/fa";
 
 export default function Footer() {
-  const hasMounted = useHasMounted();
-
   return (
-    <div
-      // {...(hasMounted ? { "data-aos": "fade-up" } : {})}
-      className="w-full lg:flex h-96 bg-gray-100 lg:bg-white py-5 lg:py-0"
-    >
-      <div className="lg:w-1/2 lg:px-[2.5rem] px-[1rem] flex items-center">
-        <div className="space-y-5">
-          <Link href="/">
-            <Image
-              src="/locka_files/logo.svg"
-              alt="Logo"
-              width={120}
-              height={40}
-              className="h-10"
+    <footer className="bg-[#274D7C] lg:h-[261px] text-white">
+      {/* top links */}
+      <div className="max-w-7xl mx-auto px-4 py-12 flex flex-col md:flex-row md:justify-between md:items-start space-y-12 md:space-y-0">
+        {/* logo */}
+        <div className="flex-shrink-0">
+          <Image
+            src="/locka_files/logo2.png"
+            alt="AssetLocka logo"
+            width={200}
+            height={40}
+          />
+        </div>
+
+        {/* link sections */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-16">
+          {/* About */}
+          <div>
+            <h3 className="font-semibold mb-3 underline">About</h3>
+            <ul className="space-y-1 text-sm">
+              <li>
+                <Link href="/about" className="hover:underline">
+                  About AssetLocka
+                </Link>
+              </li>
+              <li>
+                <Link href="/assets" className="hover:underline">
+                  Assets
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="font-semibold mb-3 underline">Contact</h3>
+            <ul className="space-y-1 text-sm">
+              <li>
+                <Link
+                  href="mailto:support@assetlocka.com"
+                  className="hover:underline"
+                >
+                  Email us
+                </Link>
+              </li>
+              <li>
+                <Link href="tel:+2347035361770" className="hover:underline">
+                  Call us
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h3 className="font-semibold mb-3 underline">Services</h3>
+            <ul className="space-y-1 text-sm">
+              <li>
+                <Link href="/locations" className="hover:underline">
+                  Locations
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="mailto:support@assetlocka.com"
+                  className="hover:underline"
+                >
+                  Email us
+                </Link>
+              </li>
+              <li>
+                <Link href="tel:+2347035361770" className="hover:underline">
+                  Call us
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h3 className="font-semibold mb-3 underline">Legal</h3>
+            <ul className="space-y-1 text-sm">
+              <li>
+                <Link href="/code-of-ethics" className="hover:underline">
+                  Code of ethics
+                </Link>
+              </li>
+              <li>
+                <Link href="/insurance" className="hover:underline">
+                  Insurance
+                </Link>
+              </li>
+              <li>
+                <Link href="/slas" className="hover:underline">
+                  SLAs
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* newsletter signup */}
+        <div className="w-full sm:w-1/2 md:w-auto">
+          <h3 className="font-semibold mb-3">
+            Want to keep hearing <br /> from us?
+          </h3>
+          <form className="flex items-center">
+            {/* Input */}
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="
+              flex-1
+              px-4 py-3
+              rounded-l-full
+              bg-[#D8D8DD]/20
+              placeholder-white/80
+              text-white
+              focus:outline-none focus:ring-2 focus:ring-transparent
+            "
             />
-          </Link>
-          <p className="text-sm">
-            Subscribe and stay fully connected with products.
-          </p>
-          <p>
-            support@assetLocka.com
-            <br />
-            +234-703-536-1770
-          </p>
-          <p>© 2025. All rights reserved.</p>
-          <FaFacebookF className="text-blue-400 text-lg" />
+
+            {/* Button */}
+            <button
+              type="submit"
+              className="-ms-5
+              px-6 py-3
+              rounded-full
+              bg-[#489AFF]
+              text-white font-semibold
+              transition
+            "
+            >
+              Send
+            </button>
+          </form>
         </div>
       </div>
-      <div className="lg:w-1/2 lg:px-[2.5rem] px-[1rem] lg:flex justify-center mt-5 lg:mt-0 bg-gray-100 items-center">
-        <div className="lg:flex gap-14">
-          <ul className="space-y-4 text-gray-400 leading-8">
-            <li className="text-black font-bold text-lg">About</li>
-            <li>About Us</li>
-            <li>Portfolio</li>
-            <li>Services</li>
-            <li>Contact</li>
-          </ul>
-          <ul className="space-y-4 text-gray-400 leading-8">
-            <li className="text-black font-bold text-lg">Quick Links</li>
-            <li>Team</li>
-            <li>Pricing</li>
-            <li>Testimonials</li>
-            <li>Faqs</li>
-          </ul>
-          <ul className="space-y-4 text-gray-400 leading-8">
-            <li className="text-black font-bold text-lg">Blog</li>
-            <li>Business</li>
-            <li>Marketing</li>
-            <li>Single</li>
-          </ul>
+
+      {/* bottom bar */}
+      <div className="bg-[#489AFF] lg:h-[51px] flex justify-center items-center">
+        <div className="max-w-7xl mx-auto gap-10  px-4 py-4 flex flex-col md:flex-row items-center justify-between text-sm text-black space-y-4 md:space-y-0">
+          {/* social icons */}
+          <div className="flex gap-4 text-lg">
+            <Link href="https://facebook.com">
+              <FaFacebookF className="hover:text-gray-200" />
+            </Link>
+            <Link href="https://instagram.com">
+              <FaInstagram className="hover:text-gray-200" />
+            </Link>
+            <Link href="https://twitter.com">
+              <FaTwitter className="hover:text-gray-200" />
+            </Link>
+            <Link href="https://linkedin.com">
+              <FaLinkedinIn className="hover:text-gray-200" />
+            </Link>
+          </div>
+
+          {/* footer legal links */}
+          <div className="flex flex-wrap items-center gap-6">
+            <span>@ AssetLocka 2025</span>
+            <Link href="/cookie-policy" className="hover:underline">
+              Cookie Policy
+            </Link>
+            <Link href="/site-map" className="hover:underline">
+              map
+            </Link>
+            <Link href="/terms" className="hover:underline">
+              Terms and Conditions
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 }

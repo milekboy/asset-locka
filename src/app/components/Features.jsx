@@ -1,53 +1,73 @@
-import React, { forwardRef } from "react";
-import FeaturesCard from "./FeaturesCard";
-import { TbChartCandle, TbChartBarPopular } from "react-icons/tb";
-import { AiOutlinePieChart } from "react-icons/ai";
-import { LuBriefcaseBusiness } from "react-icons/lu";
-import useHasMounted from "./hooks/useHasMounted";
+// components/AssetOwnerSection.jsx
+import Image from "next/image";
 
-const Features = forwardRef((props, ref) => {
-  const hasMounted = useHasMounted();
+const steps = [
+  {
+    number: 1,
+    title: "Create An Account",
+    description: "You create a secure account to manage your assets.",
+  },
+  {
+    number: 2,
+    title: "List Your Asset",
+    description:
+      "Begin to document, catalog and assign all your valuable assets in one place.",
+  },
+  {
+    number: 3,
+    title: "Assign Trusted Next of Kin",
+    description:
+      "We ensure that your assets are protected and accessible to your loved ones in the event of your passing.",
+  },
+  {
+    number: 4,
+    title: "Secure Exit",
+    description:
+      "We ensure that your assets are protected and accessible to your loved ones in the event of your passing.",
+  },
+];
 
-  const features = [
-    {
-      icon: <TbChartCandle />,
-      title: "Asset Planning",
-      description:
-        "Asset planning is one of the best gifts you can give yourself to track all your scattered e-assets.",
-    },
-    {
-      icon: <LuBriefcaseBusiness />,
-      title: "Asset Claiming",
-      description:
-        "Getting to find out your loved ones listed you as beneficiary is one thing. Claiming them can be a challenge.",
-    },
-    {
-      icon: <TbChartBarPopular />,
-      title: "e-Will/Trustee",
-      description:
-        "We believe a well setup trustee is key to ensuring your assets are managed according to your wishes.",
-    },
-    {
-      icon: <AiOutlinePieChart />,
-      title: "Last Instruction",
-      description:
-        "Write that exciting poem and say the beautiful words you had longed to express to your loved ones.",
-    },
-  ];
-
+export default function Features() {
   return (
-    <section
-      ref={ref}
-      // {...(hasMounted ? { "data-aos": "fade-up" } : {})}
-      className="pt-16 px-[1rem] lg:px-0"
-    >
-      <div className="max-w-7xl mx-auto lg:px-[2.5rem] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {features.map((f, i) => (
-          <FeaturesCard key={i} {...f} />
-        ))}
+    <section className="flex flex-col lg:flex-row items-center lg:px-[2.5rem] px-[1rem] py-16 gap-8">
+      {/* Left column */}
+      <div className="flex-1">
+        <h2 className="text-3xl lg:text-4xl font-extrabold mb-4">
+          For <span className="text-[#489AFF]">Asset Owner</span>
+        </h2>
+        <p className="text-gray-600 mb-8">
+          <span className="text-[#489AFF] font-medium">AssetLocka</span> helps
+          you to secure your assets, assign your next of kin and rest easy.
+        </p>
+
+        <div className="space-y-6">
+          {steps.map((step) => (
+            <div
+              key={step.number}
+              className="border border-pink-200 rounded-xl p-6 hover:shadow-lg transition"
+            >
+              <div className="flex items-center mb-2">
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-50 text-[#489AFF]  flex items-center justify-center font-bold">
+                  {step.number}
+                </div>
+                <h3 className="ml-4 text-lg font-semibold">{step.title}</h3>
+              </div>
+              <p className="text-gray-600 text-sm">{step.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Right column */}
+      <div className="lg:flex hidden bg-blue-50  p-8 justify-center items-center h-[900px]">
+        <Image
+          src="/locka_files/asset-owner.png"
+          alt="Person reviewing assets"
+          width={500}
+          height={500}
+          className="rounded-lg object-contain"
+        />
       </div>
     </section>
   );
-});
-
-export default Features;
+}

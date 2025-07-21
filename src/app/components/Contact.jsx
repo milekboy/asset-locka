@@ -15,7 +15,7 @@ const Contact = (props, ref) => {
       <div className="w-full flex justify-center items-center">
         <div className="space-y-">
           <p className="text-center lg:text-4xl text-2xl font-extrabold tracking-normal lg:leading-12">
-            Get in touch!
+            Get <span className="text-[#489AFF]">in</span> touch!
           </p>
           <p className="text-gray-400 leading-8 text-center">
             We will be glad to hear from you
@@ -25,9 +25,12 @@ const Contact = (props, ref) => {
             {/* Phone */}
             <div className="flex justify-center items-center w-full">
               <div className="space-y-2">
-                <div className="w-full flex justify-center">
-                  <FiPhone className="text-blue-500 mb-3 text-3xl" />
+                <div className="flex justify-center items-center w-full">
+                  <div className="w-10 rounded-lg h-10 flex justify-center items-center bg-[#489AFF]">
+                    <FiPhone className="text-white  text-3xl" />
+                  </div>
                 </div>
+
                 <p className="text-gray-400 text-center">Phone</p>
                 <p className="text-center">+234 703-536-1770</p>
                 <p className="text-center">+234 703-313-4187</p>
@@ -37,8 +40,10 @@ const Contact = (props, ref) => {
             {/* Email */}
             <div className="flex justify-center items-center w-full">
               <div className="space-y-2">
-                <div className="w-full flex justify-center">
-                  <FiMail className="text-blue-500 mb-3 text-3xl" />
+                <div className="flex justify-center items-center w-full">
+                  <div className="w-10 rounded-lg h-10 flex justify-center items-center bg-[#489AFF]">
+                    <FiMail className="text-white  text-3xl" />
+                  </div>
                 </div>
                 <p className="text-gray-400 text-center">Email</p>
                 <p className="text-center">info@assetlocka.com</p>
@@ -49,8 +54,10 @@ const Contact = (props, ref) => {
             {/* Address */}
             <div className="flex justify-center items-center col-span-2 lg:col-span-1 w-full">
               <div className="space-y-2">
-                <div className="w-full flex justify-center">
-                  <GrLocation className="text-blue-500 mb-3 text-3xl" />
+                <div className="flex justify-center items-center w-full">
+                  <div className="w-10 rounded-lg h-10 flex justify-center items-center bg-[#489AFF]">
+                    <GrLocation className="text-white  text-3xl" />
+                  </div>
                 </div>
                 <p className="text-gray-400 text-center">Address</p>
                 <p className="text-center">28b Madam Okeshola, Ikeja</p>
@@ -75,7 +82,7 @@ const Contact = (props, ref) => {
                   type="radio"
                   name="department"
                   value="support"
-                  className="accent-blue-600"
+                  className="accent-blue-200"
                   defaultChecked
                 />
                 Support
@@ -85,7 +92,7 @@ const Contact = (props, ref) => {
                   type="radio"
                   name="department"
                   value="sales"
-                  className="accent-blue-600"
+                  className="accent-blue-200"
                 />
                 Sales
               </label>
@@ -95,22 +102,22 @@ const Contact = (props, ref) => {
             <input
               type="text"
               placeholder="Subject"
-              className="col-span-2 lg:col-span-1 p-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="col-span-2 lg:col-span-1 p-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-200"
             />
             <textarea
               placeholder="Message..."
-              className="col-span-2 lg:col-span-1 p-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="col-span-2 lg:col-span-1 p-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-200"
             ></textarea>
 
             <input
               type="text"
               placeholder="Name"
-              className="col-span-2 lg:col-span-1 p-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="col-span-2 lg:col-span-1 p-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-200"
             />
             <input
               type="email"
               placeholder="name@example.com"
-              className="col-span-2 lg:col-span-1 p-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="col-span-2 lg:col-span-1 p-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-200"
             />
 
             <div className="col-span-2 flex items-center space-x-2">
@@ -121,7 +128,7 @@ const Contact = (props, ref) => {
             <div className="col-span-2 flex justify-end">
               <button
                 type="submit"
-                className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+                className="bg-[#489AFF] text-white px-6 py-2 rounded-lg  transition cursor-pointer"
               >
                 Submit
               </button>

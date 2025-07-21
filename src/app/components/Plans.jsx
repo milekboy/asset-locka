@@ -5,41 +5,37 @@ const Plan = forwardRef(function Plan(props, ref) {
   return (
     <div
       ref={ref}
-      className="w-[100%] py-20 lg:px-[2.5rem] px-[1rem] mt-56 lg:mt-10 "
+      className="w-[100%] py-20 lg:px-[2.5rem] px-[1rem]  lg:mt-10 "
     >
       <div className="w-full flex justify-center items-center ">
         <div className="space-y-4">
           <p className="text-center lg:text-4xl text-2xl font-extrabold tracking-normal lg:leading-12 ">
-            Choose Your <br />
-            <span className="text-blue-600"> Best</span> Pricing Plan
+            Choose Your
+            <span className="text-[#489AFF]"> Best</span> Pricing Plan
           </p>
-          <p className="text-gray-400 leading-8 text-xl">
+          <p className="text-gray-400 leading-8 text-xl text-center">
             Great Things Happens When You Plan
           </p>
-          <div className="flex gap-4">
-            <Link
-              href="/register"
-              className="bg-blue-500 font-bold px-3 text-white rounded-md w-full hover-up-2 lg:w-44 text-center h-10 flex justify-center items-center"
-            >
-              BRONZE PLAN
-            </Link>
-            <Link
-              href="/register"
-              className="bg-blue-500 font-bold px-3 text-white rounded-md w-full hover-up-2 lg:w-44 text-center h-10 flex justify-center items-center"
-            >
-              SILVER PLAN
-            </Link>
+          <div className="w-full flex items-center justify-center">
+            <div className="flex gap-4 ">
+              <Link
+                href="/register"
+                className="bg-[#489AFF] font-bold px-3 text-white rounded-md w-72 hover-up-2 lg:w-44 text-center h-10 flex justify-center items-center"
+              >
+                BRONZE PLAN
+              </Link>
+              <Link
+                href="/register"
+                className="bg-[#489AFF] font-bold px-3 text-white rounded-md w-full hover-up-2 lg:w-44 text-center h-10 flex justify-center items-center"
+              >
+                SILVER PLAN
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-      <div
-        // {...(typeof window !== "undefined" && { "data-aos": "fade-up" })}
-        className="lg:flex w-[100%]  lg:h-96 h-screen mt-10"
-      >
-        <div
-          // {...(typeof window !== "undefined" && { "data-aos": "fade-up" })}
-          className=" bg-blue-500 lg:w-[40%] h-[50%] lg:h-full flex justify-center items-center text-white text-center px-28 py-5 lg:py-0"
-        >
+      <div className="lg:flex w-[100%]  lg:h-96 h-screen mt-10">
+        <div className=" bg-[#489AFF] lg:w-[40%] h-[50%] lg:h-full flex justify-center items-center text-white text-center px-28 py-5 lg:py-0">
           <div>
             <p className="text-xs">Setup A Trustee</p>
             <p className=" text-4xl font-bold leading-12">
@@ -53,7 +49,7 @@ const Plan = forwardRef(function Plan(props, ref) {
         >
           <div>
             <p className="text-sm text-blue-200">Plan Features</p>
-            <ul className=" text-2xl font-bold space-y-3 text-blue-500">
+            <ul className=" text-2xl font-bold space-y-3 text-[#489AFF]">
               <li>Setup Trustee</li>
               <li>Write Last Wish</li>
               <li>Setup Multiple Beneficiaries</li>

@@ -12,6 +12,7 @@ import Secure from "./components/Secure";
 import Plan from "./components/Plans";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import FaqSection from "./components/FaqSection";
 
 function ScrollHandler({ featuresRef, contactRef, secureRef, companyRef }) {
   const searchParams = useSearchParams();
@@ -70,6 +71,7 @@ export default function Home() {
       <Secure ref={secureRef} />
       <Plan ref={companyRef} />
       <Contact ref={contactRef} />
+      <FaqSection />
       <Footer />
     </div>
   );

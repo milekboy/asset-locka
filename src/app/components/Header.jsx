@@ -71,9 +71,9 @@ export default function Header({
         <nav className="bg-transparent flex justify-between items-center py-3">
           <Link href="/">
             <Image
-              src="/locka_files/logo.svg"
+              src="/locka_files/logo.png"
               alt="Logo"
-              width={120}
+              width={200}
               height={40}
               className="h-10"
             />
@@ -84,7 +84,7 @@ export default function Header({
             <li>
               <Link
                 href="/"
-                className="text-sm font-semibold text-blueGray-600 hover:text-blueGray-500 tracking-wider"
+                className="text-sm font-semibold text-[#489AFF] hover:text-blueGray-500 tracking-wider"
               >
                 Home
               </Link>
@@ -117,11 +117,17 @@ export default function Header({
 
           {/* Desktop Auth Buttons */}
           <div className="hidden lg:flex space-x-4">
-            <Link href="/login" className="btn-accent hover-up-2">
-              Log In
+            <Link
+              href="/login"
+              className="text-[#489AFF] w-[131px] rounded-lg  border-[#489AFF] border-2 h-[40px] font-semibold text-center flex justify-center items-center px-3 "
+            >
+              LOG IN
             </Link>
-            <Link href="/signup" className="btn-primary hover-up-2">
-              Sign Up
+            <Link
+              href="/signup"
+              className="bg-[#489AFF] w-[131px] rounded-lg text-white font-semibold  h-[40px] text-center flex justify-center items-center px-3 "
+            >
+              SIGN UP
             </Link>
           </div>
 
