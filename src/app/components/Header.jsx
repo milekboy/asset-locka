@@ -140,7 +140,7 @@ export default function Header({
             <div className="flex px-4 justify-between mt-6">
               <Link href="/">
                 <Image
-                  src="/locka_files/logo.svg"
+                  src="/locka_files/logo.png"
                   alt="Logo"
                   width={120}
                   height={40}
