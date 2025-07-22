@@ -12,28 +12,37 @@ const FAQS = [
   {
     question: "Can I update or remove assets or beneficiaries later?",
     answer:
-      "Yes—once you’ve added an asset or beneficiary, you can always edit or delete it from your dashboard at any time.",
+      "Yes. You have full control over your dashboard and can edit or delete asset entries or assigned kin at any time.",
   },
   {
     question: "I have lost a loved one, how do I know if they used AssetLocka?",
     answer:
-      "If they designated you as next of kin, you’ll receive an email notification with instructions on how to access their secured information.",
+      "You can create a Next of Kin account and submit a claim using their BVN, NIN, email, or phone number. If a match exists, we’ll guide you through the next steps.",
   },
   {
     question: "Can someone be both an Asset Owner and a next of kin?",
     answer:
-      "Absolutely. You can create your own asset list and also be assigned as next of kin on someone else’s account.",
+      "Yes. Users can play both roles you can secure your own assets while also being assigned as a next of kin by someone e",
   },
   {
     question: "Is my data safe?",
     answer:
-      "Your data is encrypted at rest and in transit, and we follow industry-standard security practices to keep it secure.",
+      "Absolutely. AssetLocka uses encrypted storage and secure verification protocols to keep your information private and protected.",
   },
 ];
 
 export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState(null);
-
+  const highlightBrand = (txt) =>
+    txt.split(/(AssetLocka)/).map((p, k) =>
+      p === "AssetLocka" ? (
+        <span key={k} className="text-[#489AFF] font-semibold">
+          {p}
+        </span>
+      ) : (
+        p
+      )
+    );
   const toggle = (idx) => {
     setOpenIndex(openIndex === idx ? null : idx);
   };
@@ -69,7 +78,7 @@ export default function FaqSection() {
                       isOpen ? "text-gray-900" : "text-gray-800"
                     }`}
                   >
-                    {faq.question}
+                    {highlightBrand(faq.question)}
                   </span>
                   {isOpen ? (
                     <div className="bg-blue-400 p-2 shadow-lg rounded-4xl">
@@ -82,7 +91,9 @@ export default function FaqSection() {
                   )}
                 </button>
                 {isOpen && (
-                  <div className="px-6 pb-4 text-gray-600">{faq.answer}</div>
+                  <div className="px-6 pb-4 text-left text-gray-600">
+                    {faq.answer}
+                  </div>
                 )}
               </div>
             );
