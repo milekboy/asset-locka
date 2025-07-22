@@ -107,7 +107,9 @@ export default function MyBeneficiariesPage() {
                 ? beneficiaries.map((b) => (
                     <tr key={b.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {`${b.last_name} ${b.first_name} ${b.other_name}`}
+                        {`${b.last_name} ${b.first_name} ${
+                          b.other_name ? b.other_name + " " : ""
+                        }`}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">{b.city}</td>
                       <td className="px-6 py-4 whitespace-nowrap">

@@ -90,10 +90,10 @@ export default function MyAssetsPage() {
                   Property
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Description
+                  Category
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Category
+                  Subcategory
                 </th>
                 <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Actions
@@ -108,10 +108,10 @@ export default function MyAssetsPage() {
                         {asset.title}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {asset.description}
+                        {asset.category?.name}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {asset.category?.name}
+                        {asset.subcategory?.name}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-center flex justify-center gap-4">
                         {/* Edit button */}

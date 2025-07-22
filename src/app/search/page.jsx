@@ -103,7 +103,7 @@ export default function SearchPage() {
       )}
       {loading && <Spinner />}
 
-      <div className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md mt-8">
+      <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md mt-8">
         <div className="flex items-center justify-center mb-4 text-blue-500">
           <HiOutlineSearch className="text-2xl mr-2" />
           <h2 className="text-2xl font-semibold">Advanced Asset Search</h2>
@@ -202,7 +202,6 @@ export default function SearchPage() {
                 value={bvn}
                 onChange={(e) => setBvn(e.target.value)}
                 className="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-200"
-                required
               />
             </label>
             <label className="block">
@@ -212,7 +211,6 @@ export default function SearchPage() {
                 value={nin}
                 onChange={(e) => setNin(e.target.value)}
                 className="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-200"
-                required
               />
             </label>
           </div>

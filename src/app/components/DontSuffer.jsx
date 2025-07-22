@@ -1,5 +1,6 @@
 // components/DontSuffer.jsx
-import { ReactNode } from "react";
+
+import React, { forwardRef } from "react";
 import { TbChartCandle, TbChartBarPopular } from "react-icons/tb";
 import { AiOutlinePieChart } from "react-icons/ai";
 import { LuBriefcaseBusiness } from "react-icons/lu";
@@ -29,9 +30,12 @@ const features = [
       "Write that exciting poem and say the beautiful words you had longed to express to your loved ones.",
   },
 ];
-export default function DontSuffer() {
+const DontSuffer = (props, ref) => {
   return (
-    <section className="flex flex-col lg:flex-row lg:px-[2.5rem] px-[1rem]  py-16 gap-12">
+    <section
+      ref={ref}
+      className="flex flex-col lg:flex-row lg:px-[2.5rem] px-[1rem]  py-16 gap-12"
+    >
       {/* Left: Feature cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 flex-1">
         {features.map((f) => (
@@ -68,4 +72,6 @@ export default function DontSuffer() {
       </div>
     </section>
   );
-}
+};
+
+export default forwardRef(DontSuffer);

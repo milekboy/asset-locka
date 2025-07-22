@@ -66,9 +66,9 @@ export default function Home() {
         />
       </Suspense>
       <Hero />
-      <DontSuffer />
+      <DontSuffer ref={secureRef} />
       <Features ref={featuresRef} />
-      <Secure ref={secureRef} />
+      <Secure />
       <Plan ref={companyRef} />
       <Contact ref={contactRef} />
       <FaqSection />

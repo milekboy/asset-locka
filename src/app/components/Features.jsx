@@ -1,6 +1,6 @@
 // components/AssetOwnerSection.jsx
 import Image from "next/image";
-
+import React, { forwardRef } from "react";
 const steps = [
   {
     number: 1,
@@ -27,9 +27,12 @@ const steps = [
   },
 ];
 
-export default function Features() {
+const Features = (props, ref) => {
   return (
-    <section className="flex flex-col lg:flex-row items-center lg:px-[2.5rem] px-[1rem] py-16 gap-8">
+    <section
+      ref={ref}
+      className="flex flex-col lg:flex-row items-center lg:px-[2.5rem] px-[1rem] py-16 gap-8"
+    >
       {/* Left column */}
       <div className="flex-1">
         <h2 className="text-3xl lg:text-4xl font-extrabold mb-4">
@@ -70,4 +73,5 @@ export default function Features() {
       </div>
     </section>
   );
-}
+};
+export default forwardRef(Features);

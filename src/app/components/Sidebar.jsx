@@ -75,7 +75,7 @@ export default function Sidebar({ open, setOpen }) {
 
         {/* logo */}
         <Image
-          src="/locka_files/logo.svg"
+          src="/locka_files/logo.png"
           alt="Logo"
           width={100}
           height={40}

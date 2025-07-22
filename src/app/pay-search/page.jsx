@@ -121,14 +121,14 @@ function ResultContent() {
           <div className="flex items-center gap-2 text-gray-700">
             <HiIdentification className="text-blue-500" />
             <span>
-              <strong>BVN:</strong> {bvn}
+              <strong>BVN:</strong> {bvn ? bvn : "N/A"}
             </span>
           </div>
 
           <div className="flex items-center gap-2 text-gray-700">
             <HiIdentification className="text-blue-500" />
             <span>
-              <strong>NIN:</strong> {nin}
+              <strong>NIN:</strong> {nin ? nin : "N/A"}
             </span>
           </div>
 

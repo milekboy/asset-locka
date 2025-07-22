@@ -112,54 +112,7 @@ export default function AddAsset() {
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          {/* Title */}
-          <div>
-            <label className="block mb-1 font-medium">Title</label>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
-              required
-            />
-          </div>
-
-          {/* Description */}
-          <div>
-            <label className="block mb-1 font-medium">Description</label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 h-24 focus:outline-none focus:ring-2 focus:ring-blue-200"
-              required
-            />
-          </div>
-
-          {/* Value & Location */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block mb-1 font-medium">Company</label>
-              <input
-                type="text"
-                value={company}
-                onChange={(e) => setCompany(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
-              />
-            </div>
-            <div>
-              <label className="block mb-1 font-medium">Account ID</label>
-              <input
-                type="number"
-                value={accountId}
-                onChange={(e) => setAccountId(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
-              />
-            </div>
-          </div>
-
-          {/* Category & Subcategory */}
+          {/* Categories & Subcategories */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block mb-1 font-medium">Category</label>
@@ -185,7 +138,7 @@ export default function AddAsset() {
                 value={subcategoryId || ""}
                 onChange={(e) => setSubcategoryId(Number(e.target.value))}
                 disabled={!categoryId}
-                className="w-full border  cursor-pointer border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                className="w-full border cursor-pointer border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
                 required
               >
                 <option value="" disabled>
@@ -198,6 +151,53 @@ export default function AddAsset() {
                 ))}
               </select>
             </div>
+          </div>
+
+          {/* Title */}
+          <div>
+            <label className="block mb-1 font-medium">Title</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
+              required
+            />
+          </div>
+
+          {/* Company & Account ID */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block mb-1 font-medium">Company</label>
+              <input
+                type="text"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                required
+              />
+            </div>
+            <div>
+              <label className="block mb-1 font-medium">Account ID</label>
+              <input
+                type="number"
+                value={accountId}
+                onChange={(e) => setAccountId(e.target.value)}
+                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                required
+              />
+            </div>
+          </div>
+
+          {/* Description */}
+          <div>
+            <label className="block mb-1 font-medium">Description</label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full border border-gray-300 rounded px-3 py-2 h-24 focus:outline-none focus:ring-2 focus:ring-blue-200"
+              required
+            />
           </div>
 
           {/* Status */}
