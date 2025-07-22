@@ -3,10 +3,7 @@ import React, { forwardRef } from "react";
 
 const Plan = forwardRef(function Plan(props, ref) {
   return (
-    <div
-      ref={ref}
-      className="w-[100%] py-20 lg:px-[2.5rem] px-[1rem]  lg:mt-10 "
-    >
+    <div ref={ref} className="max-w-7xl mx-auto    py-20  px-[1rem]  lg:mt-10 ">
       <div className="w-full flex justify-center items-center ">
         <div className="space-y-4">
           <p className="text-center lg:text-4xl text-2xl font-extrabold tracking-normal lg:leading-12 ">

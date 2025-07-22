@@ -34,10 +34,10 @@ const DontSuffer = (props, ref) => {
   return (
     <section
       ref={ref}
-      className="flex flex-col lg:flex-row lg:px-[2.5rem] px-[1rem]  py-16 gap-12"
+      className="flex flex-col lg:flex-row max-w-7xl mx-auto  px-[1rem]  py-16 gap-28"
     >
       {/* Left: Feature cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 flex-1">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 flex-1 ">
         {features.map((f) => (
           <div
             key={f.title}

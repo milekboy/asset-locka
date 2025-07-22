@@ -31,10 +31,9 @@ const Features = (props, ref) => {
   return (
     <section
       ref={ref}
-      className="flex flex-col lg:flex-row items-center lg:px-[2.5rem] px-[1rem] py-16 gap-8"
+      className="flex flex-col max-w-7xl mx-auto lg:flex-row items-center  px-[1rem] py-16 gap-28"
     >
-      {/* Left column */}
-      <div className="flex-1">
+      <div className="flex-1 lg:w-1/2">
         <h2 className="text-3xl lg:text-4xl font-extrabold mb-4">
           For <span className="text-[#489AFF]">Asset Owner</span>
         </h2>
@@ -62,7 +61,7 @@ const Features = (props, ref) => {
       </div>
 
       {/* Right column */}
-      <div className="lg:flex hidden bg-blue-50  p-8 justify-center items-center h-[900px]">
+      <div className="  lg:w-1/2 lg:flex hidden bg-blue-50  p-8 justify-center items-center h-[900px]">
         <Image
           src="/locka_files/asset-owner.png"
           alt="Person reviewing assets"

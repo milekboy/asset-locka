@@ -29,9 +29,9 @@ const Secure = forwardRef(function Secure(props, ref) {
   return (
     <section
       ref={ref}
-      className="flex flex-col lg:flex-row items-center lg:px-[2.5rem] px-[1rem]  gap-8"
+      className="flex flex-col max-w-7xl mx-auto  lg:flex-row items-center  px-[1rem]  gap-28"
     >
-      <div className="lg:flex bg-blue-50  p-8 justify-center items-center h-[900px] hidden ">
+      <div className="lg:w-1/2 lg:flex bg-blue-50  p-8 justify-center items-center h-[900px] hidden ">
         <Image
           src="/locka_files/grandma.png"
           alt="Person reviewing assets"
@@ -40,7 +40,7 @@ const Secure = forwardRef(function Secure(props, ref) {
           className="rounded-lg object-contain"
         />
       </div>
-      <div className="flex-1">
+      <div className="flex-1 lg:w-1/2">
         <h2 className="text-3xl lg:text-4xl font-extrabold mb-4">
           For <span className="text-[#489AFF]">Next of Kin</span>
         </h2>

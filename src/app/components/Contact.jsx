@@ -10,7 +10,7 @@ const Contact = (props, ref) => {
     <div
       ref={ref}
       // {...(hasMounted ? { "data-aos": "fade-up" } : {})}
-      className="w-[100%] py-20 lg:px-[2.5rem] px-[1rem]"
+      className="max-w-7xl mx-auto   py-20 lg:px-[2.5rem] "
     >
       <div className="w-full flex justify-center items-center">
         <div className="space-y-">

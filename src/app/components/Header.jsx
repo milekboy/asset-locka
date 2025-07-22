@@ -63,11 +63,11 @@ export default function Header({
 
   return (
     <header
-      className={`sticky top-0 z-50 lg:px-[1.5rem] transition-colors duration-300 ${
+      className={`sticky top-0 z-50  transition-colors duration-300 ${
         scrolled ? "bg-white shadow-md" : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-4 pt-5">
+      <div className="container  max-w-7xl mx-auto px-4 pt-5">
         <nav className="bg-transparent flex justify-between items-center py-3">
           <Link href="/">
             <Image
