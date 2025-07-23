@@ -57,7 +57,7 @@ const Secure = forwardRef(function Secure(props, ref) {
         <div className="space-y-6">
           {steps.map((step, i) => (
             <div
-              data-aos="fade-left"
+              data-aos="fade-up"
               data-aos-delay={i * 120}
               key={step.number}
               className="border border-pink-200 rounded-xl p-6 hover:shadow-lg transition"
