@@ -1,5 +1,7 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useEffect } from "react";
 import Image from "next/image";
+import AOS from "aos";
+import "aos/dist/aos.css";
 const Secure = forwardRef(function Secure(props, ref) {
   const steps = [
     {
@@ -26,10 +28,13 @@ const Secure = forwardRef(function Secure(props, ref) {
         "We ensure that your assets are protected and accessible to your loved ones in the event of your passing.",
     },
   ];
+  useEffect(() => {
+    AOS.init({ duration: 600, easing: "ease-out-quart", once: true });
+  }, []);
   return (
     <section
       ref={ref}
-      className="flex flex-col max-w-7xl mx-auto  lg:flex-row items-center  px-[1rem]  gap-28"
+      className="flex flex-col max-w-7xl mx-auto  lg:flex-row items-center  px-[1rem]  gap-32"
     >
       <div className="lg:w-1/2 lg:flex bg-blue-50  p-8 justify-center items-center h-[900px] hidden ">
         <Image
@@ -50,8 +55,10 @@ const Secure = forwardRef(function Secure(props, ref) {
         </p>
 
         <div className="space-y-6">
-          {steps.map((step) => (
+          {steps.map((step, i) => (
             <div
+              data-aos="fade-left"
+              data-aos-delay={i * 120}
               key={step.number}
               className="border border-pink-200 rounded-xl p-6 hover:shadow-lg transition"
             >
