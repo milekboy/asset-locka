@@ -9,6 +9,7 @@ import {
   FaTwitter,
   FaLinkedinIn,
 } from "react-icons/fa";
+import { FaTiktok } from "react-icons/fa6";
 
 export default function Footer() {
   return (
@@ -70,7 +71,7 @@ export default function Footer() {
             <ul className="space-y-1 text-sm">
               <li>
                 <Link href="#" className="hover:underline">
-                  Locations
+                  Asset Keeping
                 </Link>
               </li>
               <li>
@@ -78,12 +79,12 @@ export default function Footer() {
                   href="mailto:support@assetlocka.com"
                   className="hover:underline"
                 >
-                  Email us
+                  Asset Claiming
                 </Link>
               </li>
               <li>
                 <Link href="tel:+2347035361770" className="hover:underline">
-                  Call us
+                  e-Will/ Trustee
                 </Link>
               </li>
             </ul>
@@ -155,17 +156,20 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto gap-10  px-4 py-4 flex flex-col md:flex-row items-center justify-between text-sm text-black space-y-4 md:space-y-0">
           {/* social icons */}
           <div className="flex gap-4 text-lg">
-            <Link href="https://facebook.com">
+            <Link href="https://web.facebook.com/profile.php?id=61578382836855">
               <FaFacebookF className="hover:text-gray-200" />
             </Link>
-            <Link href="https://instagram.com">
+            <Link href="https://www.instagram.com/assetlocka/">
               <FaInstagram className="hover:text-gray-200" />
             </Link>
-            <Link href="https://twitter.com">
+            <Link href="https://x.com/assetlocka?s=21">
               <FaTwitter className="hover:text-gray-200" />
             </Link>
-            <Link href="https://linkedin.com">
+            <Link href="https://www.linkedin.com/company/assetlocka">
               <FaLinkedinIn className="hover:text-gray-200" />
+            </Link>
+            <Link href="https://www.tiktok.com/@assetlocka">
+              <FaTiktok className="hover:text-gray-200" />
             </Link>
           </div>
 

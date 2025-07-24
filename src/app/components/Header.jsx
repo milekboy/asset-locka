@@ -105,7 +105,7 @@ export default function Header({
               onClick={scrollToCompany}
               className="text-sm cursor-pointer font-semibold text-blueGray-600 hover:text-blueGray-500 tracking-wide"
             >
-              Company
+              Plans
             </li>
             <li
               onClick={scrollToContact}
@@ -183,7 +183,7 @@ export default function Header({
                   scrollToCompany();
                 }}
               >
-                Company
+                Plans
               </li>
 
               <li

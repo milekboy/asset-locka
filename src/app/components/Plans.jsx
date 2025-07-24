@@ -1,7 +1,31 @@
-import Link from "next/link";
-import React, { forwardRef } from "react";
+import { useState, forwardRef } from "react";
+
+const FEATURES = {
+  bronze: [
+    "Setup Unlimited Assets",
+    "Setup two (2)  Beneficiaries",
+    "Asset Search Enabled",
+    "Regular Checkins & Support",
+  ],
+  silver: [
+    "Setup Trustee",
+    "Write Last Wish",
+    "Setup Multiple Beneficiaries",
+    "List Unlimited Assets",
+    "Regular Checkins & Support",
+  ],
+};
 
 const Plan = forwardRef(function Plan(props, ref) {
+  const [plan, setPlan] = useState("bronze");
+  const btnClass = (key) =>
+    `w-40 lg:w-44 h-10 flex cursor-pointer items-center justify-center rounded-md font-bold px-3 
+     transition hover:-translate-y-1 ${
+       plan === key
+         ? "bg-[#489AFF] text-white shadow-lg"
+         : "bg-gray-100 text-gray-600"
+     }`;
+
   return (
     <div ref={ref} className="max-w-7xl mx-auto    py-20  px-[1rem]  lg:mt-10 ">
       <div className="w-full flex justify-center items-center ">
@@ -15,18 +39,18 @@ const Plan = forwardRef(function Plan(props, ref) {
           </p>
           <div className="w-full flex items-center justify-center">
             <div className="flex gap-4 ">
-              <Link
-                href="/register"
-                className="bg-[#489AFF] font-bold px-3 text-white rounded-md w-72 hover-up-2 lg:w-44 text-center h-10 flex justify-center items-center"
+              <button
+                onClick={() => setPlan("bronze")}
+                className={btnClass("bronze")}
               >
                 BRONZE PLAN
-              </Link>
-              <Link
-                href="/register"
-                className="bg-[#489AFF] font-bold px-3 text-white rounded-md w-full hover-up-2 lg:w-44 text-center h-10 flex justify-center items-center"
+              </button>
+              <button
+                onClick={() => setPlan("silver")}
+                className={btnClass("silver")}
               >
                 SILVER PLAN
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -47,11 +71,9 @@ const Plan = forwardRef(function Plan(props, ref) {
           <div>
             <p className="text-sm text-blue-200">Plan Features</p>
             <ul className=" text-2xl font-bold space-y-3 text-[#489AFF]">
-              <li>Setup Trustee</li>
-              <li>Write Last Wish</li>
-              <li>Setup Multiple Beneficiaries</li>
-              <li>List Unlimited Assets</li>
-              <li>Regular Checkins & Support</li>
+              {FEATURES[plan].map((feat) => (
+                <li key={feat}>{feat}</li>
+              ))}
             </ul>
           </div>
         </div>

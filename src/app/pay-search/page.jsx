@@ -46,7 +46,6 @@ function ResultContent() {
   const [toast, setToast] = useState(null);
   const [confirming, setConfirming] = useState(false);
 
-  // pulled from URL
   const firstName = params.get("firstName");
   const middleName = params.get("middleName");
   const maidenName = params.get("maidenName");

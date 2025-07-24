@@ -38,7 +38,7 @@ export default function Hero() {
 
             <div className=" lg:flex lg:space-x-4 mt-7 space-y-4">
               <Link
-                href="/register"
+                href="/signup"
                 className="btn-primary w-full hover-up-2 lg:w-32 text-center h-10 flex justify-center items-center"
               >
                 GET STARTED

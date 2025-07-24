@@ -13,6 +13,7 @@ import Plan from "./components/Plans";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import FaqSection from "./components/FaqSection";
+import Wathsapp from "./components/Whatsapp";
 
 function ScrollHandler({ featuresRef, contactRef, secureRef, companyRef }) {
   const searchParams = useSearchParams();
@@ -73,6 +74,7 @@ export default function Home() {
       <Contact ref={contactRef} />
       <FaqSection />
       <Footer />
+      <Wathsapp />
     </div>
   );
 }
