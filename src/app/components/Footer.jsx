@@ -32,12 +32,12 @@ export default function Footer() {
             <h3 className="font-semibold mb-3 underline">About</h3>
             <ul className="space-y-1 text-sm">
               <li>
-                <Link href="/about" className="hover:underline">
+                <Link href="#" className="hover:underline">
                   About AssetLocka
                 </Link>
               </li>
               <li>
-                <Link href="/assets" className="hover:underline">
+                <Link href="/login" className="hover:underline">
                   Assets
                 </Link>
               </li>
@@ -69,7 +69,7 @@ export default function Footer() {
             <h3 className="font-semibold mb-3 underline">Services</h3>
             <ul className="space-y-1 text-sm">
               <li>
-                <Link href="/locations" className="hover:underline">
+                <Link href="#" className="hover:underline">
                   Locations
                 </Link>
               </li>
@@ -94,17 +94,17 @@ export default function Footer() {
             <h3 className="font-semibold mb-3 underline">Legal</h3>
             <ul className="space-y-1 text-sm">
               <li>
-                <Link href="/code-of-ethics" className="hover:underline">
+                <Link href="#" className="hover:underline">
                   Code of ethics
                 </Link>
               </li>
               <li>
-                <Link href="/insurance" className="hover:underline">
+                <Link href="#" className="hover:underline">
                   Insurance
                 </Link>
               </li>
               <li>
-                <Link href="/slas" className="hover:underline">
+                <Link href="#" className="hover:underline">
                   SLAs
                 </Link>
               </li>
@@ -172,13 +172,13 @@ export default function Footer() {
           {/* footer legal links */}
           <div className="flex flex-wrap items-center gap-6">
             <span>@ AssetLocka 2025</span>
-            <Link href="/cookie-policy" className="hover:underline">
+            <Link href="#" className="hover:underline">
               Cookie Policy
             </Link>
-            <Link href="/site-map" className="hover:underline">
+            <Link href="#" className="hover:underline">
               map
             </Link>
-            <Link href="/terms" className="hover:underline">
+            <Link href="#" className="hover:underline">
               Terms and Conditions
             </Link>
           </div>
