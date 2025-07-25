@@ -1,8 +1,7 @@
 "use client";
-import Footer from "../components/Footer";
-import HeadContact from "../components/HeadContact";
-import Header from "../components/Header";
-
+import HeadContact from "@/app/components/HeadContact";
+import Header from "@/app/components/Header";
+import Footer from "@/app/components/Footer";
 import { useState } from "react";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 export default function ResetPassword() {
