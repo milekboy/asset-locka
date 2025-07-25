@@ -140,7 +140,7 @@ export default function Footer() {
               className="-ms-5
               px-6 py-3
               rounded-full
-              bg-[#489AFF]
+              bg-[#E28413]
               text-white font-semibold
               transition
             "

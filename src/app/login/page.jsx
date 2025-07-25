@@ -1,51 +1,51 @@
 "use client";
 import { useState } from "react";
-import Toast from "../components/Toast";
-import { useRouter } from "next/navigation";
-import { useAuth } from "../components/AuthContext";
 import Image from "next/image";
 import Link from "next/link";
-import NetworkInstance from "../components/NetworkInstance";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import { useRouter } from "next/navigation";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
+import { FiMail } from "react-icons/fi";
+import { BsEyeSlash } from "react-icons/bs";
+import { FcGoogle } from "react-icons/fc";
+
+import { useAuth } from "../components/AuthContext";
+import NetworkInstance from "../components/NetworkInstance";
+import Header from "../components/Header";
 import HeadContact from "../components/HeadContact";
+import Footer from "../components/Footer";
+import Toast from "../components/Toast";
 import Spinner from "../components/Spinner";
+
 export default function Login() {
+  /* ───────── state / helpers ───────── */
   const router = useRouter();
   const { login } = useAuth();
-  const networkInstance = NetworkInstance();
-  const [showPwd, setShowPwd] = useState(false);
+  const api = NetworkInstance();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPwd, setShowPwd] = useState(false);
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(null);
 
+  /* ───────── handlers ───────── */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await networkInstance.post("/api/login", {
-        email,
-        password,
+      const { data } = await api.post("/api/login", { email, password });
+      login({ user: data.user, token: data.token });
+      setToast({
+        message: data.message || "Login successful!",
+        type: "success",
       });
-
-      if (response.status === 200) {
-        const { user, token, message } = response.data;
-
-        login({ user, token });
-
-        setToast({ message: message || "Login successful!", type: "success" });
-        if (user.identity_verified === 0) {
-          router.push("/kyc-verification");
-        } else {
-          router.push("/dashboard");
-        }
-      }
-    } catch (error) {
+      router.push(
+        data.user.identity_verified ? "/dashboard" : "/kyc-verification"
+      );
+    } catch (err) {
       setToast({
         message:
-          error.response?.data?.message ||
+          err.response?.data?.message ||
           "Invalid credentials. Please try again.",
         type: "error",
       });
@@ -54,8 +54,9 @@ export default function Login() {
     }
   };
 
+  /* ───────── UI ───────── */
   return (
-    <div>
+    <>
       {toast && (
         <Toast
           message={toast.message}
@@ -64,105 +65,111 @@ export default function Login() {
         />
       )}
       {loading && <Spinner />}
+
       <HeadContact />
       <Header />
 
-      <div className="w-full lg:h-screen lg:flex pb-16 lg:pb-0">
-        <div className="w-full hidden lg:w-1/2 lg:flex justify-center items-center mt-5 lg:mt-0">
-          <Image
-            src="/locka_files/space.svg"
-            alt="Rocket illustration"
-            width={500}
-            height={500}
-            priority
-          />
-        </div>
-        <div className="w-full lg:w-1/2 flex justify-center items-center mt-10 lg:mt-0">
-          <form className="w-[90%] max-w-md space-y-6" onSubmit={handleSubmit}>
-            <h1 className="text-3xl font-semibold mb-2">
-              Welcome back to <span className="text-blue-600">AssetLocka</span>{" "}
-            </h1>
+      {/* ⬇︎ Main container */}
+      <main className="flex justify-center items-center py-12 lg:py-24 px-4">
+        {/* Card */}
+        <div className="w-full max-w-md rounded-2xl shadow-lg bg-white p-8">
+          {/* Headline */}
+          <h1 className="text-2xl font-semibold text-center mb-1">
+            Welcome back to <span className="text-[#489AFF]">AssetLocka</span>
+          </h1>
+          <p className="text-center text-gray-500 mb-8">
+            Provide your credentials to access your account
+          </p>
 
-            {/* E-mail */}
-            <label className="block">
-              <span className="sr-only">Email</span>
-              <input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                required
-                placeholder="name@email.com"
-                className="input-text"
-              />
-            </label>
+          {/* Form */}
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            {/* Email */}
+            <div>
+              <label className="mb-2 block text-sm font-medium">Email</label>
+              <div className="relative">
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="name@email.com"
+                  className="w-full rounded-lg border border-gray-300 py-3 pl-4 pr-12 focus:ring-2 focus:ring-[#489AFF] focus:outline-none"
+                />
+                <FiMail className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" />
+              </div>
+            </div>
 
-            {/* Password + toggle */}
-            <label className="relative block">
-              <span className="sr-only">Password</span>
-              <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type={showPwd ? "text" : "password"}
-                required
-                placeholder="Enter your password"
-                className="input-text pr-12"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPwd(!showPwd)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            {/* Password */}
+            <div>
+              <label className="mb-2 block text-sm font-medium">Password</label>
+              <div className="relative">
+                <input
+                  type={showPwd ? "text" : "password"}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter Password"
+                  className="w-full rounded-lg border border-gray-300 py-3 pl-4 pr-12 focus:ring-2 focus:ring-[#489AFF] focus:outline-none"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPwd(!showPwd)}
+                  className="absolute right-4 top-1/2 cursor-pointer -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  {showPwd ? (
+                    <MdVisibilityOff size={20} />
+                  ) : (
+                    <MdVisibility size={20} />
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* remember / forgot */}
+            <div className="flex items-center justify-between text-sm">
+              <label className="flex items-center gap-2">
+                <input type="checkbox" className="accent-[#489AFF]" />
+                Remember me
+              </label>
+              <Link
+                href="/forgot-password"
+                className="text-red-500 font-medium"
               >
-                {showPwd ? (
-                  <MdVisibilityOff size={20} />
-                ) : (
-                  <MdVisibility size={20} />
-                )}
-              </button>
-            </label>
+                Forgot Password?
+              </Link>
+            </div>
 
-            {/* Terms checkbox */}
-            <label className="flex items-start text-sm gap-2">
-              <input
-                type="checkbox"
-                required
-                className="mt-[3px] cursor-pointer h-4 w-4 shrink-0 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
-              <span>
-                I agree to the&nbsp;
-                <Link href="#" className="link">
-                  Policy privacy
-                </Link>{" "}
-                and&nbsp;
-                <Link href="#" className="link">
-                  Terms of Use
-                </Link>
-              </span>
-            </label>
-
-            {/* Sign-in button */}
+            {/* Primary button */}
             <button
               type="submit"
-              className="btn-primary w-full py-3 font-medium cursor-pointer"
+              className="w-full cursor-pointer rounded-full bg-[#489AFF] py-3 text-white font-semibold hover:bg-[#3188e6] transition"
             >
-              Sign In
+              Log In
             </button>
 
-            {/* Divider */}
-
-            {/* Footer link */}
-            <p className="text-center text-gray-500 text-sm">
-              Don’t have an account?&nbsp;
-              <Link href="/signup" className="link">
-                Sign Up
-              </Link>
-            </p>
+            {/* Google auth button */}
+            <button
+              type="button"
+              className="w-full flex cursor-pointer items-center justify-center gap-2 rounded-full border border-gray-300 py-3 font-medium hover:bg-gray-50 transition"
+            >
+              <FcGoogle size={20} /> Continue with Google
+            </button>
           </form>
+
+          {/* footer small print */}
+          <p className="mt-6 text-center text-sm text-gray-500">
+            Don&apos;t have an account?{" "}
+            <Link
+              href="/signup"
+              className="text-[#C97613] cursor-pointer font-semibold hover:underline"
+            >
+              Sign Up
+            </Link>
+          </p>
         </div>
-      </div>
+      </main>
 
       <Footer />
-    </div>
+    </>
   );
 }
-
-/* ── Tailwind helpers (globals.css or whatever) ───────────── */

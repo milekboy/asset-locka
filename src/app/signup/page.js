@@ -1,247 +1,289 @@
 "use client";
 import { useState } from "react";
-import Spinner from "../components/Spinner";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import Toast from "../components/Toast";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import {
-  MdVisibility,
-  MdVisibilityOff,
-  MdAlternateEmail,
-} from "react-icons/md";
-import { FaUser } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { MdVisibility, MdVisibilityOff } from "react-icons/md";
+import { FiMail } from "react-icons/fi";
+
+import { FcGoogle } from "react-icons/fc";
+
 import HeadContact from "../components/HeadContact";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Toast from "../components/Toast";
+import Spinner from "../components/Spinner";
 import NetworkInstance from "../components/NetworkInstance";
+
 export default function Signup() {
+  /* ───── state & utils ───── */
   const router = useRouter();
-  const [toast, setToast] = useState(null);
-  const [showPwd, setShowPwd] = useState(false);
-  const [showPwd2, setShowPwd2] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const api = NetworkInstance();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [showPwd, setShowPwd] = useState(false);
+  const [showPwd2, setShowPwd2] = useState(false);
+  const [toast, setToast] = useState(null);
   const [loading, setLoading] = useState(false);
-  const networkInstance = NetworkInstance();
+
+  /* ───── submit ───── */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await networkInstance.post(`/api/register`, {
-        email,
+      const { data } = await api.post("/api/register", {
         first_name: firstName,
         last_name: lastName,
+        phone,
+        email,
         password,
-        password_confirmation: confirmPassword,
+        password_confirmation: confirm,
       });
-      if (response.status === 200) {
-        setToast({ message: "Signup successful!", type: "success" });
 
-        localStorage.setItem("token", response.token);
-
-        setTimeout(() => {
-          setToast(null);
-          router.push("/login");
-        }, 1500);
-        setLoading(false);
-      }
-    } catch (error) {
-      setLoading(false);
+      setToast({ message: "Signup successful!", type: "success" });
+      setTimeout(() => router.push("/login"), 1200);
+    } catch (err) {
       setToast({
-        message: "Invalid credentials. Please try again.",
+        message: err.response?.data?.message || "Something went wrong.",
         type: "error",
       });
+    } finally {
+      setLoading(false);
     }
   };
+  /*  …imports & state exactly the same … */
 
   return (
-    <div>
-      {toast && (
-        <Toast
-          message={toast.message}
-          type={toast.type}
-          onClose={() => setToast(null)}
-        />
-      )}
+    <>
+      {toast && <Toast {...toast} onClose={() => setToast(null)} />}
       {loading && <Spinner />}
+
       <HeadContact />
       <Header />
 
-      <div className="w-full min-h-screen flex flex-col items-center justify-start pt-14 lg:pb-14 lg:pt-20 bg-gray-50">
-        {/* Card */}
+      <main className="flex items-center justify-center py-12 lg:py-20 px-4 bg-gray-50 min-h-[80vh] ">
         <form
-          className="w-[92%] max-w-md bg-white shadow-sm rounded-lg px-8 py-10 space-y-6"
           onSubmit={handleSubmit}
+          className="lg:w-[897px]  bg-white shadow-md rounded-2xl
+                   lg:px-16 px-8 lg:py-12 py-10 space-y-8"
         >
-          <h1 className="text-3xl font-semibold text-center">
-            Create an Account
-          </h1>
+          {/* ─── heading ───────────────────────────────────── */}
+          <div className="space-y-2 text-center">
+            <h1 className="text-2xl font-semibold">Create an Account</h1>
+            <p className="text-gray-500 text-sm">
+              Provide correct information to setup your account
+            </p>
+          </div>
 
-          {/* Username */}
-          <label className="relative block">
-            <span className="sr-only">First Name</span>
-            <input
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              type="text"
-              required
-              placeholder="First Name"
-              className="input-text pl-12"
-            />
-            <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-          </label>
-          <label className="relative block">
-            <span className="sr-only">Last Name</span>
-            <input
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              type="text"
-              required
-              placeholder="Last Name"
-              className="input-text pl-12"
-            />
-            <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-          </label>
+          {/* ─── field grid ────────────────────────────────── */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-7">
+            {/* First name */}
+            <div className="relative">
+              <label className="block text-sm font-medium mb-2">
+                First Name
+              </label>
+              <input
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                type="text"
+                placeholder="Enter First Name"
+                required
+                className="w-full rounded-lg border border-gray-300 py-3 pl-4 pr-4
+                         placeholder:text-sm focus:ring-2 focus:ring-[#489AFF] focus:outline-none"
+              />
+            </div>
 
-          {/* Email */}
-          <label className="relative block">
-            <span className="sr-only">Email</span>
-            <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              required
-              placeholder="Email"
-              className="input-text pl-12"
-            />
-            <MdAlternateEmail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-          </label>
+            {/* Last name */}
+            <div className="relative">
+              <label className="block text-sm font-medium mb-2">
+                Last Name
+              </label>
+              <input
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                type="text"
+                placeholder="Enter Last Name"
+                required
+                className="w-full rounded-lg border border-gray-300 py-3 pl-4 pr-4
+                         placeholder:text-sm focus:ring-2 focus:ring-[#489AFF] focus:outline-none"
+              />
+            </div>
 
-          {/* Password */}
-          <label className="relative block">
-            <span className="sr-only">Password</span>
-            <input
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type={showPwd ? "text" : "password"}
-              required
-              placeholder="Enter your password"
-              className="input-text pl-4 pr-12"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPwd(!showPwd)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-            >
-              {showPwd ? (
-                <MdVisibilityOff size={20} />
-              ) : (
-                <MdVisibility size={20} />
-              )}
-            </button>
-          </label>
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                Phone&nbsp;Number
+              </label>
+              <div className="relative">
+                <input
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  type="tel"
+                  placeholder="Enter Phone Number"
+                  required
+                  className="
+      w-full rounded-lg border border-gray-300
+      py-3 pl-20 pr-4                       
+      placeholder:text-sm
+      focus:ring-2 focus:ring-[#489AFF] focus:outline-none 
+    "
+                />
 
-          {/* Confirm password */}
-          <label className="relative block">
-            <span className="sr-only">Confirm password</span>
-            <input
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              type={showPwd2 ? "text" : "password"}
-              required
-              placeholder="Confirm password"
-              className="input-text pl-4 pr-12"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPwd2(!showPwd2)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-            >
-              {showPwd2 ? (
-                <MdVisibilityOff size={20} />
-              ) : (
-                <MdVisibility size={20} />
-              )}
-            </button>
-          </label>
+                <span
+                  className="
+     
+      flex absolute left-4 top-1/2 -translate-y-1/2  border-r h-full border-gray-300      
+    "
+                >
+                  <Image
+                    src="/locka_files/nigeria.png"
+                    alt="NG"
+                    width={24}
+                    height={24}
+                    className="shrink-0 h-4 mt-4"
+                  />
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="w-4 h-4 text-black mt-4"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 10.585l3.71-3.355a.75.75 0 111.02 1.11l-4.25 3.85a.75.75 0 01-1.02 0l-4.25-3.85a.75.75 0 01.02-1.11z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+            {/* Email */}
+
+            <div>
+              <label className="mb-2 block text-sm font-medium">Email</label>
+              <div className="relative">
+                <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="email"
+                  placeholder="Enter Email"
+                  required
+                  className="w-full rounded-lg border border-gray-300 py-3 pl-4 pr-12 focus:ring-2 focus:ring-[#489AFF] focus:outline-none"
+                />
+                <FiMail className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" />
+              </div>
+            </div>
+
+            <div className="relative">
+              <label className="block text-sm font-medium mb-2">
+                Create Password
+              </label>
+              <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type={showPwd ? "text" : "password"}
+                placeholder="Enter New Password"
+                required
+                className="w-full rounded-lg border border-gray-300 py-3 pl-4 pr-12
+                         placeholder:text-sm focus:ring-2 focus:ring-[#489AFF] focus:outline-none"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPwd((p) => !p)}
+                className="absolute mt-3 right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                {showPwd ? (
+                  <MdVisibilityOff size={20} />
+                ) : (
+                  <MdVisibility size={20} />
+                )}
+              </button>
+            </div>
+
+            {/* Confirm password */}
+            <div className="relative">
+              <label className="block text-sm font-medium mb-2">
+                Confirm Password
+              </label>
+              <input
+                value={confirm}
+                onChange={(e) => setConfirm(e.target.value)}
+                type={showPwd2 ? "text" : "password"}
+                placeholder="Confirm New Password"
+                required
+                className="w-full rounded-lg border border-gray-300 py-3 pl-4 pr-12
+                         placeholder:text-sm focus:ring-2 focus:ring-[#489AFF] focus:outline-none"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPwd2((p) => !p)}
+                className="absolute mt-3 right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                {showPwd2 ? (
+                  <MdVisibilityOff size={20} />
+                ) : (
+                  <MdVisibility size={20} />
+                )}
+              </button>
+            </div>
+          </div>
 
           {/* Terms checkbox */}
-          <label className="flex items-start text-sm gap-2">
+          <label className="flex items-start gap-2 text-sm">
             <input
               type="checkbox"
               required
-              className="mt-[3px] cursor-pointer h-4 w-4 shrink-0 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="accent-[#489AFF] mt-[3px]"
             />
-            <span>
-              I agree to&nbsp;
-              <Link href="#" className="link">
-                Policy privacy
-              </Link>{" "}
-              and&nbsp;
-              <Link href="#" className="link">
-                Terms of Use
-              </Link>
-            </span>
-          </label>
-
-          {/* Submit */}
-          <button
-            type="submit"
-            className="btn-primary w-full py-3 cursor-pointer font-medium"
-          >
-            Sign Up Now
-          </button>
-
-          {/* Divider */}
-          <div className=" items-center justify-center gap-4 hidden">
-            <span className="h-px flex-1 bg-gray-200" />
-            <span className="text-gray-400 text-sm">or continue with</span>
-            <span className="h-px flex-1 bg-gray-200" />
-          </div>
-
-          {/* Social buttons (optional) */}
-          <div className="space-y-4 hidden">
-            <button
-              type="button"
-              className="btn-outline w-full flex items-center gap-3"
-            >
-              <Image
-                src="/icons/facebook.svg"
-                width={20}
-                height={20}
-                alt="Facebook"
-              />
-              Sign Up with Facebook
-            </button>
-            <button
-              type="button"
-              className="btn-outline w-full flex items-center gap-3"
-            >
-              <Image
-                src="/icons/google.svg"
-                width={20}
-                height={20}
-                alt="Google"
-              />
-              Sign Up with Google
-            </button>
-          </div>
-
-          {/* Already have an account */}
-          <p className="text-center text-gray-500 text-sm pt-2">
-            Already have an account?&nbsp;
-            <Link href="/login" className="link">
-              Log In
+            I agree to&nbsp;
+            <Link href="#" className="text-[#489AFF] hover:underline">
+              policy privacy
             </Link>
-          </p>
+            &nbsp;and&nbsp;
+            <Link href="#" className="text-[#489AFF] hover:underline">
+              terms of use
+            </Link>
+          </label>
+          <div className="w-full flex justify-center">
+            <div className="w-[400px] space-y-8 ">
+              <button
+                type="submit"
+                className="w-full rounded-full bg-[#489AFF] hover:bg-[#3188e6]
+                     py-3 font-semibold text-white transition cursor-pointer"
+              >
+                Sign&nbsp;Up
+              </button>
+              {/* Login link */}
+              <p className="text-center text-sm">
+                Already have an account?{" "}
+                <Link
+                  href="/login"
+                  className="text-[#C97613] font-semibold hover:underline"
+                >
+                  Login
+                </Link>
+              </p>
+              {/* Google pill */}
+              <button
+                type="button"
+                className="mt-2 border border-gray-300 rounded-full w-full
+                     flex items-center justify-center gap-3 py-3 cursor-pointer
+                     hover:bg-gray-50 transition"
+              >
+                <FcGoogle size={20} /> Sign Up with Google
+              </button>
+            </div>
+          </div>
         </form>
-      </div>
+      </main>
 
       <Footer />
-    </div>
+    </>
   );
 }
