@@ -1,22 +1,61 @@
 "use client";
 import HeadContact from "@/app/components/HeadContact";
+import Spinner from "@/app/components/Spinner";
+import Toast from "@/app/components/Toast";
 import Header from "@/app/components/Header";
+import { useRouter } from "next/navigation";
+import NetworkInstance from "@/app/components/NetworkInstance";
 import Footer from "@/app/components/Footer";
 import { useState } from "react";
+import { useParams } from "next/navigation";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 export default function ResetPassword() {
+  const { reset_code } = useParams();
   const [pwd, setPwd] = useState("");
+  const [loading, setLoading] = useState(false);
   const [confirm, setConf] = useState("");
+  const [toast, setToast] = useState(null);
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
-
-  const handleSubmit = (e) => {
+  const api = NetworkInstance();
+  const router = useRouter();
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO:  call /api/reset-password endpoint with token + new pwd
-    console.log("new password →", pwd);
+
+    if (pwd !== confirm) {
+      setToast({ message: "Passwords do not match", type: "error" });
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const { data } = await api.post("/api/confirm-reset-password", {
+        reset_code,
+        password: pwd,
+        password_confirmation: confirm,
+      });
+      setToast({ message: data.message || "Password reset!", type: "success" });
+      setTimeout(() => router.push("/password-change-success"), 1500);
+    } catch (err) {
+      setToast({
+        message: err.response?.data?.message || "Something went wrong.",
+        type: "error",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
     <>
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
+      {loading && <Spinner />}
       <HeadContact />
       <Header />
       <main className="min-h-screen flex items-center justify-center bg-gray-50 py-14 px-4">

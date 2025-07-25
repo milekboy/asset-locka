@@ -8,7 +8,7 @@ import Toast from "@/app/components/Toast";
 import Spinner from "@/app/components/Spinner";
 
 export default function EditAssetPage() {
-  const { id } = useParams(); // Next 13 App Router hook
+  const { id } = useParams();
   const router = useRouter();
   const api = NetworkInstance();
 
