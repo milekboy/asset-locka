@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import { useGoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
@@ -48,6 +49,7 @@ export default function Signup() {
       setToast({ message: "Signup successful!", type: "success" });
       setTimeout(() => router.push("/login"), 1200);
     } catch (err) {
+      console.log(err);
       setToast({
         message: err.response?.data?.message || "Something went wrong.",
         type: "error",
@@ -56,7 +58,23 @@ export default function Signup() {
       setLoading(false);
     }
   };
-  /*  …imports & state exactly the same … */
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (cred) => {
+      console.log(cred);
+      try {
+        const { data } = await api.post("api/auth/google/token", {
+          id_token: cred.access_token,
+        });
+        login({ user: data.user, token: data.token });
+        router.push("/dashboard");
+      } catch (e) {
+        console.error(e);
+        alert("Google verification failed");
+      }
+    },
+    onError: () => alert("Google popup closed"),
+    flow: "implicit",
+  });
 
   return (
     <>
@@ -69,7 +87,7 @@ export default function Signup() {
       <main className="flex items-center justify-center py-12 lg:py-20 px-4 bg-gray-50 min-h-[80vh] ">
         <form
           onSubmit={handleSubmit}
-          className="lg:w-[897px]  bg-white shadow-md rounded-2xl
+          className="lg:w-[897px] w-screen  bg-white shadow-md rounded-2xl
                    lg:px-16 px-8 lg:py-12 py-10 space-y-8"
         >
           {/* ─── heading ───────────────────────────────────── */}
@@ -269,9 +287,10 @@ export default function Signup() {
                   Login
                 </Link>
               </p>
-              {/* Google pill */}
+
               <button
                 type="button"
+                onClick={() => googleLogin()}
                 className="mt-2 border border-gray-300 rounded-full w-full
                      flex items-center justify-center gap-3 py-3 cursor-pointer
                      hover:bg-gray-50 transition"

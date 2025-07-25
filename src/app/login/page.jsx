@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { FiMail } from "react-icons/fi";
-import { BsEyeSlash } from "react-icons/bs";
+import { useGoogleLogin } from "@react-oauth/google";
 import { FcGoogle } from "react-icons/fc";
 
 import { useAuth } from "../components/AuthContext";
@@ -54,6 +54,23 @@ export default function Login() {
     }
   };
 
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (cred) => {
+      console.log(cred);
+      try {
+        const { data } = await api.post("api/auth/google/token", {
+          id_token: cred.access_token,
+        });
+        login({ user: data.user, token: data.token });
+        router.push("/dashboard");
+      } catch (e) {
+        console.error(e);
+        alert("Google verification failed");
+      }
+    },
+    onError: () => alert("Google popup closed"),
+    flow: "implicit",
+  });
   /* ───────── UI ───────── */
   return (
     <>
@@ -149,6 +166,7 @@ export default function Login() {
 
             {/* Google auth button */}
             <button
+              onClick={() => googleLogin()}
               type="button"
               className="w-full flex cursor-pointer items-center justify-center gap-2 rounded-full border border-gray-300 py-3 font-medium hover:bg-gray-50 transition"
             >

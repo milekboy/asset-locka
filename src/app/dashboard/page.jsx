@@ -120,31 +120,7 @@ export default function DashboardHome() {
           </p>
         </div>
       </div>
-      {assets.length === 0 ? (
-        <div className="flex flex-col items-center rounded-xl bg-blue-50 p-8 w-full max-w-xl text-center mt-10">
-          <h3 className="text-xl font-semibold text-gray-800 mb-3">
-            You haven’t added any assets yet
-          </h3>
-          <p className="text-gray-500 mb-6">
-            Secure your loved ones’ future by listing your first asset now.
-          </p>
-          <Link
-            href="/add-asset"
-            className="bg-[#489AFF] hover:bg-[#3188e6] transition text-white font-semibold px-6 py-3 rounded-lg"
-          >
-            + Add your first asset
-          </Link>
-        </div>
-      ) : (
-        <div className="mt-10">
-          <Link
-            href="/add-asset"
-            className="bg-[#489AFF] hover:bg-[#3188e6] transition text-white font-semibold px-5 py-3 rounded-lg ms-4 lg:ms-0"
-          >
-            + Add Asset
-          </Link>
-        </div>
-      )}
+
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-16">
         <div className="bg-white rounded-lg p-6  items-center  shadow-sm">
           <div className="flex gap-3">
@@ -201,6 +177,31 @@ export default function DashboardHome() {
           </div>
         </div>
       </div>
+      {assets.length === 0 ? (
+        <div className="flex flex-col items-center rounded-xl bg-blue-50 p-8  w-full text-center mt-10">
+          <h3 className="text-xl font-semibold text-gray-800 mb-3">
+            You haven’t added any assets yet
+          </h3>
+          <p className="text-gray-500 mb-6">
+            Secure your loved ones’ future by listing your first asset now.
+          </p>
+          <Link
+            href="/add-asset"
+            className="bg-[#489AFF] hover:bg-[#3188e6] transition text-white font-semibold px-6 py-3 rounded-lg"
+          >
+            + Add your first asset
+          </Link>
+        </div>
+      ) : (
+        <div className="mt-10">
+          <Link
+            href="/add-asset"
+            className="bg-[#489AFF] hover:bg-[#3188e6] transition text-white font-semibold px-5 py-3 rounded-lg ms-4 lg:ms-0"
+          >
+            + Add Asset
+          </Link>
+        </div>
+      )}
     </DashboardLayout>
   );
 }
