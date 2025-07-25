@@ -157,6 +157,7 @@ export default function AddAsset() {
           <div>
             <label className="block mb-1 font-medium">Title</label>
             <input
+              placeholder="Asset Title"
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -165,12 +166,12 @@ export default function AddAsset() {
             />
           </div>
 
-          {/* Company & Account ID */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block mb-1 font-medium">Company</label>
+              <label className="block mb-1 font-medium">Company Name</label>
               <input
                 type="text"
+                placeholder="Name of company"
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
                 className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
@@ -180,6 +181,7 @@ export default function AddAsset() {
             <div>
               <label className="block mb-1 font-medium">Account ID</label>
               <input
+                placeholder="Account Number"
                 type="number"
                 value={accountId}
                 onChange={(e) => setAccountId(e.target.value)}
@@ -189,7 +191,6 @@ export default function AddAsset() {
             </div>
           </div>
 
-          {/* Description */}
           <div>
             <label className="block mb-1 font-medium">Description</label>
             <textarea
@@ -200,7 +201,6 @@ export default function AddAsset() {
             />
           </div>
 
-          {/* Status */}
           <div>
             <label className="block mb-1 font-medium">Status</label>
             <select

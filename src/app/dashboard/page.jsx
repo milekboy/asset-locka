@@ -103,8 +103,49 @@ export default function DashboardHome() {
         />
       )}
       {loading && <Spinner />}
-
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-10 lg:mt-0">
+      <div className="bg-white rounded-lg p-6 flex items-center gap-3 shadow-sm  mt-10 lg:mt-0">
+        <div>
+          <p>
+            <IoIosWarning className="text-red-500" /> Email Verification
+            required
+          </p>
+          <p>
+            Please verify your email address to access all features.{" "}
+            <span
+              onClick={handleinkRequest}
+              className="underline cursor-pointer"
+            >
+              Click here to resend verification email
+            </span>
+          </p>
+        </div>
+      </div>
+      {assets.length === 0 ? (
+        <div className="flex flex-col items-center rounded-xl bg-blue-50 p-8 w-full max-w-xl text-center mt-10">
+          <h3 className="text-xl font-semibold text-gray-800 mb-3">
+            You haven’t added any assets yet
+          </h3>
+          <p className="text-gray-500 mb-6">
+            Secure your loved ones’ future by listing your first asset now.
+          </p>
+          <Link
+            href="/add-asset"
+            className="bg-[#489AFF] hover:bg-[#3188e6] transition text-white font-semibold px-6 py-3 rounded-lg"
+          >
+            + Add your first asset
+          </Link>
+        </div>
+      ) : (
+        <div className="mt-10">
+          <Link
+            href="/add-asset"
+            className="bg-[#489AFF] hover:bg-[#3188e6] transition text-white font-semibold px-5 py-3 rounded-lg ms-4 lg:ms-0"
+          >
+            + Add Asset
+          </Link>
+        </div>
+      )}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-16">
         <div className="bg-white rounded-lg p-6  items-center  shadow-sm">
           <div className="flex gap-3">
             <FcDocument /> <p className="font-medium">Listed Assets</p>
@@ -115,7 +156,7 @@ export default function DashboardHome() {
               {assets.length}
             </p>
             <Link
-              className="btn-primary   hover-up-2 ml-auto  text-center h-10 flex justify-center items-center"
+              className="btn-primary cursor-pointer  hover-up-2 ml-auto  text-center h-10 flex justify-center items-center"
               href="/my-assets"
             >
               <button>View</button>
@@ -158,23 +199,6 @@ export default function DashboardHome() {
               View
             </Link>
           </div>
-        </div>
-      </div>
-      <div className="bg-white rounded-lg p-6 flex items-center gap-3 shadow-sm mt-16">
-        <div>
-          <p>
-            <IoIosWarning className="text-red-500" /> Email Verification
-            required
-          </p>
-          <p>
-            Please verify your email address to access all features.{" "}
-            <span
-              onClick={handleinkRequest}
-              className="underline cursor-pointer"
-            >
-              Click here to resend verification email
-            </span>
-          </p>
         </div>
       </div>
     </DashboardLayout>

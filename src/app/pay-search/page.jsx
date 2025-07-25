@@ -60,7 +60,9 @@ function ResultContent() {
   const reference = params.get("reference");
   const amount = params.get("amount");
 
-  const PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY;
+  // const PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY;
+
+  const PUBLIC_KEY = "pk_test_8f50f7ec5175d60bdc0fd2645df800bd3dc37b49";
 
   const handleConfirm = async ({ reference: ref }) => {
     setConfirming(true);

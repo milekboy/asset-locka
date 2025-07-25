@@ -60,6 +60,7 @@ const Contact = (props, ref) => {
         message,
         name,
         email,
+        department: "support",
       });
 
       setToast({
@@ -131,7 +132,7 @@ const Contact = (props, ref) => {
               placeholder="Subject"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              className="p-3 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-200"
+              className="col-span-2 lg:col-span-1 p-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-200"
               required
             />
 
@@ -139,7 +140,7 @@ const Contact = (props, ref) => {
               placeholder="Message..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="p-3 border border-gray-200 rounded-md h-32 lg:h-auto focus:ring-2 focus:ring-pink-200"
+              className="col-span-2 lg:col-span-1 p-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-200"
               required
             />
 
@@ -148,7 +149,7 @@ const Contact = (props, ref) => {
               placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="p-3 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-200"
+              className="col-span-2 lg:col-span-1 p-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-200"
               required
             />
             <input
@@ -156,7 +157,7 @@ const Contact = (props, ref) => {
               placeholder="email@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="p-3 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-200"
+              className="col-span-2 lg:col-span-1 p-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-200"
               required
             />
 
