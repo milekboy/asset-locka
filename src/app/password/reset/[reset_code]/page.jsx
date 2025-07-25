@@ -34,7 +34,6 @@ export default function ResetPassword() {
         password: pwd,
         password_confirmation: confirm,
       });
-      setToast({ message: data.message || "Password reset!", type: "success" });
       setTimeout(() => router.push("/password-change-success"), 1500);
     } catch (err) {
       setToast({
