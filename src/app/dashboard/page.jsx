@@ -85,6 +85,7 @@ export default function DashboardHome() {
         });
       }
     } catch (error) {
+      console.log(error);
       setLoading(false);
       setToast({
         message: "Please try again.",
@@ -103,23 +104,27 @@ export default function DashboardHome() {
         />
       )}
       {loading && <Spinner />}
-      <div className="bg-white rounded-lg p-6 flex items-center gap-3 shadow-sm  mt-10 lg:mt-0">
-        <div>
-          <p>
-            <IoIosWarning className="text-red-500" /> Email Verification
-            required
-          </p>
-          <p>
-            Please verify your email address to access all features.{" "}
-            <span
-              onClick={handleinkRequest}
-              className="underline cursor-pointer"
-            >
-              Click here to resend verification email
-            </span>
-          </p>
+      {user?.email_verified_at === null ? (
+        <div className="bg-white rounded-lg p-6 flex items-center gap-3 shadow-sm  mt-10 lg:mt-0">
+          <div>
+            <p>
+              <IoIosWarning className="text-red-500" /> Email Verification
+              required
+            </p>
+            <p>
+              Please verify your email address to access all features.{" "}
+              <span
+                onClick={handleinkRequest}
+                className="underline cursor-pointer"
+              >
+                Click here to resend verification email
+              </span>
+            </p>
+          </div>
         </div>
-      </div>
+      ) : (
+        <></>
+      )}
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-16">
         <div className="bg-white rounded-lg p-6  items-center  shadow-sm">
