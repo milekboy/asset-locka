@@ -84,16 +84,25 @@ export default function Header({
             <li>
               <Link
                 href="/"
-                className="text-sm font-semibold text-[#489AFF] hover:text-blueGray-500 tracking-wider"
+                className={`text-sm font-semibold hover:text-blueGray-500 tracking-wider   ${
+                  pathname === "/" ? "text-[#489AFF]" : "text-blueGray-600 "
+                }`}
               >
                 Home
               </Link>
             </li>
-            <li
-              onClick={scrollToSecure}
-              className="text-sm font-semibold cursor-pointer text-blueGray-600 hover:text-blueGray-500 tracking-wide"
-            >
-              About Us
+
+            <li>
+              <Link
+                href="/about-us"
+                className={`text-sm font-semibold hover:text-blueGray-500 tracking-wider   ${
+                  pathname === "/about-us"
+                    ? "text-[#489AFF]"
+                    : "text-blueGray-600 "
+                }`}
+              >
+                About Us
+              </Link>
             </li>
             <li
               className="text-sm font-semibold text-blueGray-600 hover:text-blueGray-500 tracking-wide cursor-pointer"
@@ -119,13 +128,22 @@ export default function Header({
           <div className="hidden lg:flex space-x-4">
             <Link
               href="/login"
-              className="text-[#489AFF] w-[131px] rounded-lg  border-[#489AFF] border-2 h-[40px] font-semibold text-center flex justify-center items-center px-3 "
+              className={`text-[#489AFF] w-[131px] rounded-lg  border-[#489AFF] border-2 h-[40px] font-semibold text-center flex justify-center items-center px-3  ${
+                pathname === "/login"
+                  ? "bg-[#489AFF] text-white"
+                  : "text-[#489AFF]"
+              }`}
             >
               LOG IN
             </Link>
+
             <Link
               href="/signup"
-              className="bg-[#489AFF] w-[131px] rounded-lg text-white font-semibold  h-[40px] text-center flex justify-center items-center px-3 "
+              className={`text-[#489AFF] w-[131px] rounded-lg  border-[#489AFF] border-2 h-[40px] font-semibold text-center flex justify-center items-center px-3  ${
+                pathname === "/signup"
+                  ? "bg-[#489AFF] text-white"
+                  : "text-[#489AFF]"
+              }`}
             >
               SIGN UP
             </Link>
