@@ -178,7 +178,7 @@ export default function Header({
               </Link>
 
               <Link href="/about-us">
-                <li onClick={navHandler}>Home</li>
+                <li onClick={navHandler}>About Us</li>
               </Link>
 
               <li
