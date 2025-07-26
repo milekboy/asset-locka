@@ -177,14 +177,9 @@ export default function Header({
                 <li onClick={navHandler}>Home</li>
               </Link>
 
-              <li
-                onClick={() => {
-                  setMenuOpen(false);
-                  scrollToSecure();
-                }}
-              >
-                About Us
-              </li>
+              <Link href="/about-us">
+                <li onClick={navHandler}>Home</li>
+              </Link>
 
               <li
                 onClick={() => {
